@@ -5,16 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f0f0f0"
-    tools:context=".MainActivity">
+    tools:context=".CreateNewPlanActivity">
+
 
     <Button
         android:id="@+id/runningTrackerBtn"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:backgroundTint="#6b9ede"
         android:onClick="openRunningTracker"
         android:text="RUNNING\nTRACKER"
         android:textColor="#ffffff"
-        android:backgroundTint="#6b9ede"
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/vLine1"
@@ -27,9 +28,10 @@
         android:id="@+id/todayPlanBtn"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:backgroundTint="#6b9ede"
+        android:onClick="openToday"
         android:text="Today's\nPlan"
         app:cornerRadius="0dp"
-        android:backgroundTint="#34517f"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/vLine2"
         app:layout_constraintStart_toStartOf="@+id/vLine1"
@@ -39,10 +41,9 @@
         android:id="@+id/newPlanBtn"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:textColor="#ffffff"
-        android:backgroundTint="#6b9ede"
-        android:onClick="openNewPlan"
+        android:backgroundTint="#34517f"
         android:text="New Plan\nCreator"
+        android:textColor="#ffffff"
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,30 +51,6 @@
         app:layout_constraintStart_toStartOf="@+id/vLine2"
         app:layout_constraintTop_toTopOf="@+id/hLine1" />
 
-    <TextView
-        android:id="@+id/displayDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="displayDate"
-        android:textSize="48sp"
-        app:layout_constraintBottom_toTopOf="@+id/displayTime"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/displayTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="displayTime"
-        android:textSize="32sp"
-        app:layout_constraintBottom_toTopOf="@+id/hLine3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/hLine1"
@@ -115,16 +92,6 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.66"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/todayListRecycler"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/hLine1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/hLine3"
-        app:layout_constraintVertical_bias=".5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
