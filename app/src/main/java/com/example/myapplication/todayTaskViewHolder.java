@@ -10,11 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 public class todayTaskViewHolder extends RecyclerView.ViewHolder {
     public TextView todayTask;
     public CheckBox todayTaskCheckbox;
+    public TextView todayItemCal;
 
     public todayTaskViewHolder(View todayTaskView, final ItemClickListener listener) {
         super(todayTaskView);
         todayTask = itemView.findViewById(R.id.todayTaskName);
         todayTaskCheckbox = itemView.findViewById(R.id.todayTaskCheckbox);
+        todayItemCal = itemView.findViewById(R.id.todayItemCal);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

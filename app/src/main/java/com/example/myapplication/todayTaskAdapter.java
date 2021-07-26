@@ -11,10 +11,10 @@ import java.util.ArrayList;
 
 public class todayTaskAdapter extends RecyclerView.Adapter<todayTaskViewHolder> {
 
-    private ArrayList<todayTaskItem> todayTaskList;
+    private ArrayList<workoutItem> todayTaskList;
     private ItemClickListener listener;
 
-    public todayTaskAdapter(ArrayList<todayTaskItem> taskList) { todayTaskList = taskList;}
+    public todayTaskAdapter(ArrayList<workoutItem> taskList) { todayTaskList = taskList;}
     public void setOnItemClickListener(ItemClickListener listener) {
         this.listener = listener;
     }
@@ -27,9 +27,10 @@ public class todayTaskAdapter extends RecyclerView.Adapter<todayTaskViewHolder> 
 
     @Override
     public void onBindViewHolder(todayTaskViewHolder holder, int position) {
-        todayTaskItem currentItem = todayTaskList.get(position);
-        holder.todayTask.setText(currentItem.getTodayTaskName());
-        holder.todayTaskCheckbox.setChecked(currentItem.getTodayTaskCheck());
+        workoutItem currentItem = todayTaskList.get(position);
+        holder.todayTask.setText(currentItem.getWorkoutName());
+        holder.todayTaskCheckbox.setChecked(currentItem.getStatus());
+        holder.todayItemCal.setText(String.valueOf(currentItem.getCal()) + " Cal.");
     }
 
     @Override

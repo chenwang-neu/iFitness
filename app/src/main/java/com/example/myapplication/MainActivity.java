@@ -18,34 +18,41 @@ import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private Button button;
     private TextView displayDate, displayTime;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private todayTaskAdapter mAdapter;
-    private ArrayList<todayTaskItem> todayTaskList = new ArrayList<>();
+    private ArrayList<workoutItem> todayTaskList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        displayDateAndTime();
+        fillRecyclerView();
+        buildRecyclerView();
+    }
+
+
+    public void displayDateAndTime(){
         String currentDateString = new SimpleDateFormat("MMM d, yyyy").format(new Date());
         String currentTimeString = new SimpleDateFormat("h:mm a").format(new Date());
         displayDate = findViewById(R.id.displayDate);
         displayTime = findViewById(R.id.displayTime);
         displayDate.setText(currentDateString);
         displayTime.setText(currentTimeString);
+    }
 
+    // subject to change
+    public void fillRecyclerView(){
+        todayTaskList.add(0, new workoutItem("Swim", Boolean.FALSE, null, 100));
+        todayTaskList.add(0, new workoutItem("Push ups", Boolean.FALSE, null, 100));
+        todayTaskList.add(0, new workoutItem("Dance", Boolean.FALSE, null, 100));
+        todayTaskList.add(0, new workoutItem("Jump", Boolean.FALSE, null, 100));
+        todayTaskList.add(0, new workoutItem("Basketball", Boolean.FALSE, null, 100));
+        todayTaskList.add(0, new workoutItem("Football", Boolean.FALSE, null, 100));
+        todayTaskList.add(0, new workoutItem("Tennis", Boolean.FALSE, null, 100));
 
-        todayTaskList.add(0, new todayTaskItem("Swim", Boolean.FALSE));
-        todayTaskList.add(0, new todayTaskItem("Push ups", Boolean.FALSE));
-        todayTaskList.add(0, new todayTaskItem("Dance", Boolean.FALSE));
-        todayTaskList.add(0, new todayTaskItem("Jump", Boolean.FALSE));
-        todayTaskList.add(0, new todayTaskItem("Basketball", Boolean.FALSE));
-        todayTaskList.add(0, new todayTaskItem("Football", Boolean.FALSE));
-        todayTaskList.add(0, new todayTaskItem("Tennis", Boolean.FALSE));
-
-        buildRecyclerView();
     }
 
     public void buildRecyclerView(){
@@ -53,18 +60,16 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.todayListRecycler);
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new todayTaskAdapter(todayTaskList);
-//        ItemClickListener itemClickListener = new ItemClickListener() {
-//            @Override
-//            public void onItemClick(int position) {
-//
-//            }
-//        };
-//        mAdapter.setOnItemClickListener(itemClickListener);
+        ItemClickListener itemClickListener = new ItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+            }
+        };
+        mAdapter.setOnItemClickListener(itemClickListener);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
     }
-
-
 
 
 
