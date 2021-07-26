@@ -2,35 +2,30 @@ package com.example.myapplication;
 
 import android.widget.Button;
 
-public class dayItem {
-    public String weekday;
+public class workoutItem {
+    public String workoutName;
     public Boolean selected;
     public Button btn;
-
-
-
-    public dayItem(String input1, Boolean input2, Button input3){
-        weekday = input1;
+    public int cal;
+    public workoutItem(String input1, Boolean input2, Button input3, int input4){
+        workoutName = input1;
         selected = input2;
         btn = input3;
-
+        cal = input4;
     }
 
 
-    public String getWeekday(){
-        return weekday;
-    }
+    public String getWorkoutName(){return workoutName;}
+
     public Boolean getStatus() {
         return selected;
     }
     public Button getBtn() {
         return btn;
     }
-
-
+    public int getCal(){return cal;}
 
     public void changeSelectionStatus(Boolean newstatus){
         this.selected = newstatus;
     }
-
 }
