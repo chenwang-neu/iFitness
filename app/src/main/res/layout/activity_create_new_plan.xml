@@ -7,6 +7,124 @@
     android:background="#f0f0f0"
     tools:context=".CreateNewPlanActivity">
 
+    <Button
+        android:id="@+id/mondayBtn"
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:layout_marginEnd="8dp"
+
+        android:onClick="onButtonClick"
+        android:text="M"
+        android:textSize="12sp"
+        android:backgroundTint="#637daf"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/hLine3"
+        app:layout_constraintEnd_toStartOf="@+id/tuesdayBtn"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/tuesdayBtn"
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="#637daf"
+        android:onClick="onButtonClick"
+        android:text="T"
+        android:textSize="12sp"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/hLine3"
+        app:layout_constraintEnd_toStartOf="@+id/wednesdayBtn"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/wednesdayBtn"
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="#637daf"
+        android:onClick="onButtonClick"
+        android:text="W"
+        android:textSize="12sp"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/hLine3"
+        app:layout_constraintEnd_toStartOf="@+id/thursdayBtn"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/thursdayBtn"
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:backgroundTint="#637daf"
+        android:onClick="onButtonClick"
+        android:text="R"
+        android:textSize="12sp"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/hLine3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/fridayBtn"
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="#637daf"
+        android:onClick="onButtonClick"
+        android:text="F"
+        android:textSize="12sp"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/hLine3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/thursdayBtn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/saturdayBtn"
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="#637daf"
+        android:onClick="onButtonClick"
+        android:text="S"
+        android:textSize="12sp"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/hLine3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/fridayBtn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/sundayBtn"
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="#637daf"
+        android:onClick="onButtonClick"
+        android:text="S"
+        android:textSize="12sp"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/hLine3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/saturdayBtn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/runningTrackerBtn"
@@ -93,5 +211,146 @@
         app:layout_constraintGuide_percent="0.66"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/daysTextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Days"
+        android:textColor="#002952"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/thursdayBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/workoutTextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="WORKOUT"
+        android:textColor="#002952"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thursdayBtn" />
+
+    <TextView
+        android:id="@+id/totalCalTextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="Total Calories"
+        android:textColor="#002952"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/defaultCustomBtn" />
+
+    <Button
+        android:id="@+id/defaultSwimBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:backgroundTint="#637daf"
+        android:onClick="onButtonClick"
+        android:text="Swimming"
+        app:cornerRadius="0dp"
+        app:layout_constraintEnd_toStartOf="@+id/vLine1"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workoutTextview" />
+
+    <Button
+        android:id="@+id/defaultPushupBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:backgroundTint="#637daf"
+        android:onClick="onButtonClick"
+        android:text="Push Ups"
+        app:cornerRadius="0dp"
+        app:layout_constraintEnd_toStartOf="@+id/vLine2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/defaultSwimBtn"
+        app:layout_constraintTop_toBottomOf="@+id/workoutTextview" />
+
+    <Button
+        android:id="@+id/defaultRunningBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:backgroundTint="#637daf"
+        android:onClick="onButtonClick"
+        android:text="Running"
+        app:cornerRadius="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintStart_toStartOf="@+id/vLine2"
+        app:layout_constraintTop_toBottomOf="@+id/workoutTextview" />
+
+    <Button
+        android:id="@+id/defaultCustomBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#637daf"
+        app:cornerRadius="0dp"
+        android:text="Custom"
+        app:layout_constraintEnd_toStartOf="@+id/vLine2"
+        app:layout_constraintStart_toStartOf="@+id/vLine1"
+        app:layout_constraintTop_toBottomOf="@+id/defaultPushupBtn" />
+
+    <TextView
+        android:id="@+id/calNumTextview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="0"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#637daf"
+        app:layout_constraintEnd_toStartOf="@+id/vLine2"
+        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintStart_toStartOf="@+id/vLine1"
+        app:layout_constraintTop_toBottomOf="@+id/totalCalTextview" />
+
+    <Button
+        android:id="@+id/clearBtn"
+        android:layout_width="108sp"
+        android:layout_height="wrap_content"
+        android:text="CLEAR"
+        android:backgroundTint="#93ace1"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/hLine1"
+        app:layout_constraintEnd_toStartOf="@+id/vLine2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calNumTextview" />
+
+    <Button
+        android:id="@+id/confirmBtn"
+        android:layout_width="108sp"
+        android:layout_height="wrap_content"
+        android:text="Confirm"
+        android:backgroundTint="#637daf"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/hLine1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/vLine1"
+        app:layout_constraintTop_toBottomOf="@+id/calNumTextview"
+        app:layout_constraintVertical_bias="0.503" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

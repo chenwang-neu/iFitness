@@ -38,7 +38,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         todayTaskList.add(0, new todayTaskItem("Swim", Boolean.FALSE));
-        todayTaskList.add(0, new todayTaskItem("Push ups", Boolean.TRUE));
+        todayTaskList.add(0, new todayTaskItem("Push ups", Boolean.FALSE));
+        todayTaskList.add(0, new todayTaskItem("Dance", Boolean.FALSE));
+        todayTaskList.add(0, new todayTaskItem("Jump", Boolean.FALSE));
+        todayTaskList.add(0, new todayTaskItem("Basketball", Boolean.FALSE));
+        todayTaskList.add(0, new todayTaskItem("Football", Boolean.FALSE));
+        todayTaskList.add(0, new todayTaskItem("Tennis", Boolean.FALSE));
+
         buildRecyclerView();
     }
 
@@ -47,11 +53,21 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.todayListRecycler);
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new todayTaskAdapter(todayTaskList);
-
+//        ItemClickListener itemClickListener = new ItemClickListener() {
+//            @Override
+//            public void onItemClick(int position) {
+//
+//            }
+//        };
+//        mAdapter.setOnItemClickListener(itemClickListener);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
-
     }
+
+
+
+
+
 
     public void openRunningTracker(View view) {
         Intent intent = new Intent(this, MapsActivity.class);

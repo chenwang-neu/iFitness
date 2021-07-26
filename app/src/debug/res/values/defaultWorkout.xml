@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="defaultWorkouts">
+        <item>Swim 800 Cal.</item>
+        <item>Push Ups 500 Cal.</item>
+        <item>Running 1200 Cal.</item>
+
+
+    </string-array>
+
+
+
+
+</resources>
