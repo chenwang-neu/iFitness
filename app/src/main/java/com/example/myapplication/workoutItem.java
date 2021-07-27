@@ -26,6 +26,7 @@ public class workoutItem {
         return btn;
     }
     public int getCal(){return cal;}
+    public String getDescription(){return description;}
 
     public void changeSelectionStatus(Boolean newstatus){
         this.selected = newstatus;

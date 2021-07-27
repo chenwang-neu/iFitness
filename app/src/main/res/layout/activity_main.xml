@@ -54,26 +54,29 @@
         android:id="@+id/displayDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="displayDate"
-        android:textSize="48sp"
+        android:layout_marginStart="32dp"
+        android:text="DayInWeek"
         android:textColor="#002952"
-        app:layout_constraintBottom_toTopOf="@+id/displayTime"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/displayWeekday"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/displayTime"
+        android:id="@+id/displayWeekday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="displayTime"
+        android:text="MMDDYYYY"
         android:textColor="#002952"
-        android:textSize="32sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/hLine3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/displayDate"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -97,7 +100,7 @@
         android:layout_marginBottom="73dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintGuide_percent="0.21"
+        app:layout_constraintGuide_percent="0.18"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -132,6 +135,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/hLine3"
         app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/hLine3"
+        app:layout_constraintEnd_toStartOf="@+id/vLine1"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/plan" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
