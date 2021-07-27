@@ -103,10 +103,10 @@ public class CreateNewPlanActivity extends AppCompatActivity {
         dayItemArrayList.add(sun);
 
 
-        swim = new workoutItem("Swimming", Boolean.FALSE, findViewById(R.id.defaultSwimBtn), 800);
-        run = new workoutItem("Running", Boolean.FALSE, findViewById(R.id.defaultRunningBtn), 500);
+        swim = new workoutItem("Swimming", Boolean.FALSE, findViewById(R.id.defaultSwimBtn), 800, "famous activity");
+        run = new workoutItem("Running", Boolean.FALSE, findViewById(R.id.defaultRunningBtn), 500, "famous activity");
         pushup = new workoutItem("Push Ups", Boolean.FALSE, findViewById(R.id.defaultPushupBtn),
-                1200);
+                1200, "famous activity");
 
         workoutItemArrayList = new ArrayList<workoutItem>();
         workoutItemArrayList.add(swim);
@@ -191,7 +191,7 @@ public class CreateNewPlanActivity extends AppCompatActivity {
     }
 
     public void confirmBtnAction(View view){
-        confirmedNewPlan = new HashMap<String, String>();
+        confirmedNewPlan = new HashMap<String, String>(); // hashmap
         for (int i = 0; i < 7; i++){
             for (int j = 0; j < 3; j++){
                 if (dayItemArrayList.get(i).getStatus() && workoutItemArrayList.get(j).getStatus()){
@@ -203,6 +203,8 @@ public class CreateNewPlanActivity extends AppCompatActivity {
         clearBtnAction(view);
     }
 
+
+    // chest, shouler, back, leg
 
     //
     public void openToday(View view) {

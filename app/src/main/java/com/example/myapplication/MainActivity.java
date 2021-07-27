@@ -45,14 +45,13 @@ public class MainActivity extends AppCompatActivity {
 
     // subject to change
     public void fillRecyclerView(){
-        todayTaskList.add(0, new workoutItem("Swim", Boolean.FALSE, null, 100));
-        todayTaskList.add(0, new workoutItem("Push ups", Boolean.FALSE, null, 100));
-        todayTaskList.add(0, new workoutItem("Dance", Boolean.FALSE, null, 100));
-        todayTaskList.add(0, new workoutItem("Jump", Boolean.FALSE, null, 100));
-        todayTaskList.add(0, new workoutItem("Basketball", Boolean.FALSE, null, 100));
-        todayTaskList.add(0, new workoutItem("Football", Boolean.FALSE, null, 100));
-        todayTaskList.add(0, new workoutItem("Tennis", Boolean.FALSE, null, 100));
-
+        todayTaskList.add(0, new workoutItem("Swim", Boolean.FALSE, null, 100, "famous activity"));
+        todayTaskList.add(0, new workoutItem("Push ups", Boolean.FALSE, null, 100, "famous activity"));
+        todayTaskList.add(0, new workoutItem("Dance", Boolean.FALSE, null, 100, "famous activity"));
+        todayTaskList.add(0, new workoutItem("Jump", Boolean.FALSE, null, 100, "famous activity"));
+        todayTaskList.add(0, new workoutItem("Basketball", Boolean.FALSE, null, 100, "famous activity"));
+        todayTaskList.add(0, new workoutItem("Football", Boolean.FALSE, null, 100, "famous activity"));
+        todayTaskList.add(0, new workoutItem("Tennis", Boolean.FALSE, null, 100, "famous activity"));
     }
 
     public void buildRecyclerView(){
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+// click tennis -> show info.
 
     public void openRunningTracker(View view) {
         Intent intent = new Intent(this, MapsActivity.class);

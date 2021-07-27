@@ -30,4 +30,5 @@ public class todayTaskViewHolder extends RecyclerView.ViewHolder {
             }
         });
     }
+
 }
