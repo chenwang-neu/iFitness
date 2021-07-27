@@ -11,7 +11,6 @@
         android:id="@+id/mondayBtn"
         android:layout_width="40sp"
         android:layout_height="40sp"
-
         android:backgroundTint="#637daf"
         android:onClick="onButtonClick"
         android:text="M"

@@ -33,8 +33,11 @@ public class MainActivity extends AppCompatActivity {
         displayDateAndTime();
         fillRecyclerView();
         buildRecyclerView();
-    }
 
+        // to be added - change checkbox status by database info.
+        // handle screen rotation
+
+    }
 
     public void displayDateAndTime(){
         String currentDateString = new SimpleDateFormat("MMMM d yyyy").format(new Date());

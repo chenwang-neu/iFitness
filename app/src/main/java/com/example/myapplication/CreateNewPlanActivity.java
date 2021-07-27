@@ -7,7 +7,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,15 +23,30 @@ public class CreateNewPlanActivity extends AppCompatActivity {
     private Integer currentCalories;
     private TextView calTextView;
     private HashMap<String, String> confirmedNewPlan;
+    private ArrayList<workoutCategoryItem> workoutCategoryArrayList;
+    private categoryAdapter catAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_create_new_plan);
-
         initializeDefault();
         calTextView = findViewById(R.id.calNumTextview);
+        initSpinner();
+
+    }
+
+
+
+    private void initSpinner(){
+        Spinner workoutCategorySpinner = findViewById(R.id.workoutCategorySpinner);
+        catAdapter = new categoryAdapter(this, workoutCategoryArrayList);
+        workoutCategorySpinner.setAdapter(catAdapter);
+
+        // to be finished
+
+
     }
 
     private void init(Bundle savedInstanceState) { // called in onCreate()
@@ -83,6 +101,8 @@ public class CreateNewPlanActivity extends AppCompatActivity {
             }
         }
     }
+
+
     public void initializeDefault(){
         currentCalories = 0;
         mon = new dayItem("Monday", Boolean.FALSE, findViewById(R.id.mondayBtn));
@@ -102,7 +122,6 @@ public class CreateNewPlanActivity extends AppCompatActivity {
         dayItemArrayList.add(sat);
         dayItemArrayList.add(sun);
 
-
         swim = new workoutItem("Swimming", Boolean.FALSE, findViewById(R.id.defaultSwimBtn), 800, "famous activity");
         run = new workoutItem("Running", Boolean.FALSE, findViewById(R.id.defaultRunningBtn), 500, "famous activity");
         pushup = new workoutItem("Push Ups", Boolean.FALSE, findViewById(R.id.defaultPushupBtn),
@@ -112,6 +131,12 @@ public class CreateNewPlanActivity extends AppCompatActivity {
         workoutItemArrayList.add(swim);
         workoutItemArrayList.add(run);
         workoutItemArrayList.add(pushup);
+
+        workoutCategoryArrayList = new ArrayList<>();
+        workoutCategoryArrayList.add(new workoutCategoryItem("Chest", R.drawable.abs));
+        workoutCategoryArrayList.add(new workoutCategoryItem("Back", R.drawable.back));
+        workoutCategoryArrayList.add(new workoutCategoryItem("Arm", R.drawable.arm));
+        workoutCategoryArrayList.add(new workoutCategoryItem("Leg", R.drawable.leg));
     }
 
     // deal with week day selection
