@@ -211,6 +211,15 @@
         app:layout_constraintGuide_percent="0.66"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/centerVline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/daysTextview"
         android:layout_width="wrap_content"
@@ -244,7 +253,7 @@
         android:id="@+id/totalCalTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="32dp"
         android:text="Total Calories"
         android:textColor="#002952"
         android:textSize="24sp"
@@ -255,62 +264,61 @@
 
     <Button
         android:id="@+id/defaultSwimBtn"
-        android:layout_width="0dp"
+        android:layout_width="150sp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
         android:backgroundTint="#637daf"
         android:onClick="onButtonClick"
-        android:text="Swimming"
+        android:text="workout1"
         app:cornerRadius="0dp"
-        app:layout_constraintEnd_toStartOf="@+id/vLine1"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toStartOf="@+id/centerVline"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/workoutTextview" />
+        app:layout_constraintTop_toBottomOf="@+id/workoutCategorySpinner" />
 
     <Button
         android:id="@+id/defaultPushupBtn"
-        android:layout_width="0dp"
+        android:layout_width="150sp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:backgroundTint="#637daf"
         android:onClick="onButtonClick"
-        android:text="Push Ups"
-        app:cornerRadius="0dp"
-        app:layout_constraintEnd_toStartOf="@+id/vLine2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/defaultSwimBtn"
-        app:layout_constraintTop_toBottomOf="@+id/workoutTextview" />
-
-    <Button
-        android:id="@+id/defaultRunningBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="4dp"
-        android:backgroundTint="#637daf"
-        android:onClick="onButtonClick"
-        android:text="Running"
+        android:text="workout2"
         app:cornerRadius="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/vLine2"
-        app:layout_constraintTop_toBottomOf="@+id/workoutTextview" />
+        app:layout_constraintStart_toStartOf="@+id/centerVline"
+        app:layout_constraintTop_toBottomOf="@+id/workoutCategorySpinner" />
+
+    <Button
+        android:id="@+id/defaultRunningBtn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="#637daf"
+        android:onClick="onButtonClick"
+        android:text="workout3"
+        app:cornerRadius="0dp"
+        app:layout_constraintEnd_toStartOf="@+id/centerVline"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/defaultSwimBtn" />
 
     <Button
         android:id="@+id/defaultCustomBtn"
-        android:layout_width="0dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="#637daf"
-        android:text="Custom"
+        android:text="workout4"
         app:cornerRadius="0dp"
-        app:layout_constraintEnd_toStartOf="@+id/vLine2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/vLine1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/centerVline"
         app:layout_constraintTop_toBottomOf="@+id/defaultPushupBtn" />
 
     <TextView
@@ -361,6 +369,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="80dp"
         app:layout_constraintBottom_toTopOf="@+id/defaultPushupBtn"
         app:layout_constraintEnd_toEndOf="parent"

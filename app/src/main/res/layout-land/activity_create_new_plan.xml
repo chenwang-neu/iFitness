@@ -209,13 +209,14 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.66"
         app:layout_constraintStart_toStartOf="parent" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vLine3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.1"
+        app:layout_constraintGuide_percent="0.07"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -238,11 +239,11 @@
         android:id="@+id/workoutTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="WORKOUT"
         android:textColor="#002952"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/totalCalTextview"
         app:layout_constraintEnd_toStartOf="@+id/vLine1"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/vLine3"
@@ -371,5 +372,18 @@
         app:layout_constraintStart_toStartOf="@+id/vLine1"
         app:layout_constraintTop_toBottomOf="@+id/calNumTextview"
         app:layout_constraintVertical_bias="0.503" />
+
+    <Spinner
+        android:id="@+id/workoutCategorySpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/totalCalTextview"
+        app:layout_constraintEnd_toStartOf="@+id/vLine1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/vLine3"
+        app:layout_constraintTop_toBottomOf="@+id/workoutTextview"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
