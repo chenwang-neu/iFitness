@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".activity_runningTracker">
 
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapViewLand"
+        android:layout_width="318dp"
+        android:layout_height="310dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/hLine1"
+        app:layout_constraintEnd_toStartOf="@+id/speedView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/kph"
         android:layout_width="wrap_content"
@@ -37,27 +47,27 @@
         android:id="@+id/distanceView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="236dp"
+        android:layout_marginBottom="280dp"
         android:text="Distance:"
         android:textColor="#002952"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.34"
+        app:layout_constraintHorizontal_bias="0.689"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/speedView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="28dp"
         android:text="Speed:"
         android:textColor="#002952"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.318"
+        app:layout_constraintHorizontal_bias="0.671"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/distanceView" />
 
@@ -65,13 +75,13 @@
         android:id="@+id/paceView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="28dp"
         android:text="Pace:"
         android:textColor="#002952"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.308"
+        app:layout_constraintHorizontal_bias="0.662"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/speedView" />
 
@@ -79,13 +89,13 @@
         android:id="@+id/calories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="Calories:"
         android:textColor="#002952"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.335"
+        app:layout_constraintHorizontal_bias="0.688"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/paceView" />
 
@@ -164,7 +174,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:backgroundTint="#34517f"
-        android:text="RUNNING\nTRACKER"
+        android:text="RUNNING TRACKER"
         android:textColor="#ffffff"
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -178,10 +188,10 @@
         android:id="@+id/todayPlanBtn"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:backgroundTint="#6b9ede"
+        android:text="Today's Plan"
         android:onClick="openToday"
-        android:text="Today's\nPlan"
         app:cornerRadius="0dp"
+        android:backgroundTint="#6b9ede"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/vLine2"
         app:layout_constraintStart_toStartOf="@+id/vLine1"
@@ -191,10 +201,10 @@
         android:id="@+id/newPlanBtn"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:backgroundTint="#6b9ede"
-        android:text="New Plan\nCreator"
         android:textColor="#ffffff"
+        android:backgroundTint="#6b9ede"
         android:onClick="openNewPlan"
+        android:text="New Plan Creator"
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -230,17 +240,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintGuide_percent="0.90"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="318dp"
-        android:layout_height="369dp"
-        android:layout_marginTop="36dp"
-        app:layout_constraintBottom_toTopOf="@+id/distanceView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.032" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
