@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void openRunningTracker(View view) {
-        Intent intent = new Intent(this, MapsActivity.class);
+        Intent intent = new Intent(this, activity_runningTracker.class);
         startActivity(intent);
     }
 
