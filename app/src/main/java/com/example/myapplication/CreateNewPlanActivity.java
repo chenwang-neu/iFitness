@@ -238,7 +238,7 @@ public class CreateNewPlanActivity extends AppCompatActivity {
     }
 
     public void openRunningTracker(View view) {
-        Intent intent = new Intent(this, activity_runningTracker.class);
+        Intent intent = new Intent(this, RunningTrackerActivity.class);
         startActivity(intent);
     }
     public void openCustomPage(View view) {
