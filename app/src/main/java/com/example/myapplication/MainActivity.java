@@ -1,19 +1,29 @@
 package com.example.myapplication;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     public TextView displayDate, displayTime, dialogName, dialogDescription, dialogCal;
@@ -26,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     public Button gotitBtn;
 
 
+    String testFireBase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +48,24 @@ public class MainActivity extends AppCompatActivity {
         // to be added - change checkbox status by database info.
         // handle screen rotation
 
+
+        //test shilin zhou
+//        Log.d("if enter the method: ", "!!!!!!!!!!!");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("exercises");
+        Log.d("reference is: ", reference.toString());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("if enter the method: ", "!!!!!!!!!!!");
+                testFireBase = snapshot.getValue().toString();
+                Log.d("firebase fetch data: ", testFireBase);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public void displayDateAndTime(){
@@ -51,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     // subject to change
     public void fillRecyclerView(){
         todayTaskList.add(0, new workoutItem("Swim", Boolean.FALSE, null, 100,
-                "famous activity swim"));
+                testFireBase));
         todayTaskList.add(0, new workoutItem("Push ups", Boolean.FALSE, null, 100, "too difficult" +
                 " to me "));
         todayTaskList.add(0, new workoutItem("Dance", Boolean.FALSE, null, 100, "i love dance!"));
@@ -62,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
         todayTaskList.add(0, new workoutItem("Football", Boolean.FALSE, null, 100, "run run run"));
         todayTaskList.add(0, new workoutItem("Tennis", Boolean.FALSE, null, 100, "Tennis is a racket sport that can be played individually against a single opponent (singles) or between two teams of two players each (doubles). Each player uses a tennis racket that is strung with cord to strike a hollow rubber ball covered with felt over or around a net and into the opponent's court. "));
     }
+
+
+
+
 
     public void buildRecyclerView(){
         mLayoutManager = new LinearLayoutManager(this);
