@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+
 public class MainActivity extends AppCompatActivity {
     public TextView displayDate, displayTime, dialogName, dialogDescription, dialogCal;
     public RecyclerView mRecyclerView;
@@ -141,9 +142,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     public void openRunningTracker(View view) {
-        Intent intent = new Intent(this, activity_runningTracker.class);
+        Intent intent = new Intent(this, RunningTrackerActivity.class);
         startActivity(intent);
     }
 
