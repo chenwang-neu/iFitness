@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.newplan;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,25 +12,28 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.current_schedule.ScheduledPlanActivity;
+import com.example.myapplication.R;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CreateNewPlanActivity extends AppCompatActivity {
-    private ArrayList<dayItem> dayItemArrayList;
-    private dayItem mon, tue, wed, thurs, fri, sat, sun;
-    private ArrayList<workoutItem> workoutItemArrayList;
-    private workoutItem swim, pushup, run;
+public class NewPlanActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+    private ArrayList<DayItem> dayItemArrayList;
+    private DayItem mon, tue, wed, thurs, fri, sat, sun;
+    private ArrayList<WorkoutItem> workoutItemArrayList;
+    private WorkoutItem workoutItem1, workoutItem2, workoutItem3, workoutItem4;
     private Integer currentCalories;
     private TextView calTextView;
     private HashMap<String, String> confirmedNewPlan;
-    private ArrayList<workoutCategoryItem> workoutCategoryArrayList;
-    private categoryAdapter catAdapter;
+    private ArrayList<WorkoutCategoryItem> workoutCategoryArrayList;
+    private CategoryAdapter catAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_create_new_plan);
+        setContentView(R.layout.new_plan);
         initializeDefault();
         calTextView = findViewById(R.id.calNumTextview);
         initSpinner();
@@ -41,13 +44,19 @@ public class CreateNewPlanActivity extends AppCompatActivity {
 
     private void initSpinner(){
         Spinner workoutCategorySpinner = findViewById(R.id.workoutCategorySpinner);
-        catAdapter = new categoryAdapter(this, workoutCategoryArrayList);
+        catAdapter = new CategoryAdapter(this, workoutCategoryArrayList);
         workoutCategorySpinner.setAdapter(catAdapter);
-
-        // to be finished
-
-
+        workoutCategorySpinner.setOnItemSelectedListener(this);
     }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//        WorkoutItem selectedCategory = parent.getItemAtPosition(position).getCategoryName();
+//        workoutItem1.getBtn().setText(selectedCategory);
+    }
+
+
+
 
     private void init(Bundle savedInstanceState) { // called in onCreate()
         onRestoreInstanceState(savedInstanceState);
@@ -105,15 +114,15 @@ public class CreateNewPlanActivity extends AppCompatActivity {
 
     public void initializeDefault(){
         currentCalories = 0;
-        mon = new dayItem("Monday", Boolean.FALSE, findViewById(R.id.mondayBtn));
-        tue = new dayItem("Tuesday", Boolean.FALSE, findViewById(R.id.tuesdayBtn));
-        wed = new dayItem("Wednesday", Boolean.FALSE, findViewById(R.id.wednesdayBtn));
-        thurs = new dayItem("Thursday", Boolean.FALSE, findViewById(R.id.thursdayBtn));
-        fri = new dayItem("Friday", Boolean.FALSE, findViewById(R.id.fridayBtn));
-        sat = new dayItem("Saturday", Boolean.FALSE, findViewById(R.id.saturdayBtn));
-        sun = new dayItem("Sunday", Boolean.FALSE, findViewById(R.id.sundayBtn));
+        mon = new DayItem("Monday", Boolean.FALSE, findViewById(R.id.mondayBtn));
+        tue = new DayItem("Tuesday", Boolean.FALSE, findViewById(R.id.tuesdayBtn));
+        wed = new DayItem("Wednesday", Boolean.FALSE, findViewById(R.id.wednesdayBtn));
+        thurs = new DayItem("Thursday", Boolean.FALSE, findViewById(R.id.thursdayBtn));
+        fri = new DayItem("Friday", Boolean.FALSE, findViewById(R.id.fridayBtn));
+        sat = new DayItem("Saturday", Boolean.FALSE, findViewById(R.id.saturdayBtn));
+        sun = new DayItem("Sunday", Boolean.FALSE, findViewById(R.id.sundayBtn));
 
-        dayItemArrayList = new ArrayList<dayItem>();
+        dayItemArrayList = new ArrayList<DayItem>();
         dayItemArrayList.add(mon);
         dayItemArrayList.add(tue);
         dayItemArrayList.add(wed);
@@ -122,25 +131,31 @@ public class CreateNewPlanActivity extends AppCompatActivity {
         dayItemArrayList.add(sat);
         dayItemArrayList.add(sun);
 
-        swim = new workoutItem("Swimming", Boolean.FALSE, findViewById(R.id.defaultSwimBtn), 800, "famous activity");
-        run = new workoutItem("Running", Boolean.FALSE, findViewById(R.id.defaultRunningBtn), 500, "famous activity");
-        pushup = new workoutItem("Push Ups", Boolean.FALSE, findViewById(R.id.defaultPushupBtn),
+        workoutItem1 = new WorkoutItem("Workout1", Boolean.FALSE,
+                findViewById(R.id.defaultSwimBtn), 800, "famous activity");
+        workoutItem3 = new WorkoutItem("Workout2", Boolean.FALSE,
+                findViewById(R.id.defaultRunningBtn), 500, "famous activity");
+        workoutItem2 = new WorkoutItem("Workout3", Boolean.FALSE,
+                findViewById(R.id.defaultPushupBtn),
+                1200, "famous activity");
+        workoutItem4 = new WorkoutItem("Workout4", Boolean.FALSE,
+                findViewById(R.id.defaultPushupBtn),
                 1200, "famous activity");
 
-        workoutItemArrayList = new ArrayList<workoutItem>();
-        workoutItemArrayList.add(swim);
-        workoutItemArrayList.add(run);
-        workoutItemArrayList.add(pushup);
+        workoutItemArrayList = new ArrayList<WorkoutItem>();
+        workoutItemArrayList.add(workoutItem1);
+        workoutItemArrayList.add(workoutItem3);
+        workoutItemArrayList.add(workoutItem2);
 
         workoutCategoryArrayList = new ArrayList<>();
-        workoutCategoryArrayList.add(new workoutCategoryItem("Chest", R.drawable.abs));
-        workoutCategoryArrayList.add(new workoutCategoryItem("Back", R.drawable.back));
-        workoutCategoryArrayList.add(new workoutCategoryItem("Arm", R.drawable.arm));
-        workoutCategoryArrayList.add(new workoutCategoryItem("Leg", R.drawable.leg));
+        workoutCategoryArrayList.add(new WorkoutCategoryItem("Chest", R.drawable.abs));
+        workoutCategoryArrayList.add(new WorkoutCategoryItem("Back", R.drawable.back));
+        workoutCategoryArrayList.add(new WorkoutCategoryItem("Arm", R.drawable.arm));
+        workoutCategoryArrayList.add(new WorkoutCategoryItem("Leg", R.drawable.leg));
     }
 
     // deal with week day selection
-    public void onSelectedWeekdayAction(dayItem day){
+    public void onSelectedWeekdayAction(DayItem day){
         if (day.getStatus() == Boolean.FALSE){
             day.getBtn().setBackgroundColor(Color.parseColor("#002952"));
             day.changeSelectionStatus(Boolean.TRUE);
@@ -151,7 +166,7 @@ public class CreateNewPlanActivity extends AppCompatActivity {
     }
 
     // deal with work out selection
-    public void onSelectedWorkoutAction(workoutItem workout){
+    public void onSelectedWorkoutAction(WorkoutItem workout){
         if (workout.getStatus() == Boolean.FALSE){
             workout.getBtn().setBackgroundColor(Color.parseColor("#002952"));
             currentCalories = currentCalories + workout.getCal();
@@ -189,13 +204,13 @@ public class CreateNewPlanActivity extends AppCompatActivity {
                 onSelectedWeekdayAction(sun);
                 break;
             case R.id.defaultSwimBtn:
-                onSelectedWorkoutAction(swim);
+                onSelectedWorkoutAction(workoutItem1);
                 break;
             case R.id.defaultPushupBtn:
-                onSelectedWorkoutAction(pushup);
+                onSelectedWorkoutAction(workoutItem2);
                 break;
             case R.id.defaultRunningBtn:
-                onSelectedWorkoutAction(run);
+                onSelectedWorkoutAction(workoutItem3);
                 break;
         }
     }
@@ -229,21 +244,18 @@ public class CreateNewPlanActivity extends AppCompatActivity {
     }
 
 
-    // chest, shouler, back, leg
 
     //
     public void openToday(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ScheduledPlanActivity.class);
         startActivity(intent);
     }
 
-    public void openRunningTracker(View view) {
-        Intent intent = new Intent(this, activity_runningTracker.class);
-        startActivity(intent);
-    }
-    public void openCustomPage(View view) {
-        Intent intent = new Intent(this, customPage.class);
-        startActivity(intent);
-    }
 
+
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
