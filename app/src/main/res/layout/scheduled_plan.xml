@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f0f0f0"
-    tools:context=".MainActivity">
+    tools:context=".current_schedule.ScheduledPlanActivity">
 
     <Button
         android:id="@+id/runningTrackerBtn"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:onClick="openRunningTracker"
-        android:text="RUNNING\nTRACKER"
-        android:textColor="#ffffff"
         android:backgroundTint="#6b9ede"
+
+        android:text="@string/left_navigation"
+        android:textColor="#ffffff"
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/vLine1"
@@ -27,9 +27,9 @@
         android:id="@+id/todayPlanBtn"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Today's\nPlan"
-        app:cornerRadius="0dp"
         android:backgroundTint="#34517f"
+        android:text="@string/center_navigation"
+        app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/vLine2"
         app:layout_constraintStart_toStartOf="@+id/vLine1"
@@ -39,46 +39,16 @@
         android:id="@+id/newPlanBtn"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:textColor="#ffffff"
         android:backgroundTint="#6b9ede"
         android:onClick="openNewPlan"
-        android:text="New Plan\nCreator"
+        android:text="@string/right_navigation"
+        android:textColor="#ffffff"
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/vLine2"
         app:layout_constraintTop_toTopOf="@+id/hLine1" />
-
-    <TextView
-        android:id="@+id/displayDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:text="DayInWeek"
-        android:textColor="#002952"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/displayWeekday"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/displayWeekday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MMDDYYYY"
-        android:textColor="#002952"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/hLine3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/displayDate"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/hLine1"
@@ -100,7 +70,7 @@
         android:layout_marginBottom="73dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintGuide_percent="0.18"
+        app:layout_constraintGuide_percent="0.2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -121,14 +91,32 @@
         app:layout_constraintGuide_percent="0.66"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/displayDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Date"
+        android:textColor="#002952"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/todayListRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"
+        android:background="@color/white"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toTopOf="@+id/hLine1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -138,15 +126,50 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:layout_constraintBottom_toTopOf="@+id/hLine3"
-        app:layout_constraintEnd_toStartOf="@+id/vLine1"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/plan" />
+
+    <Spinner
+        android:id="@+id/weekdaySpinner"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/hLine3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="Display Schedule for"
+        android:textColor="#002952"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/hLine3"
+        app:layout_constraintEnd_toStartOf="@+id/weekdaySpinner"
+        app:layout_constraintHorizontal_bias="0.983"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/weekdaySpinner"
+        app:layout_constraintVertical_bias=".5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="90dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

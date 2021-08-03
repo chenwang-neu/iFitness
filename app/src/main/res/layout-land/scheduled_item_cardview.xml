@@ -17,13 +17,27 @@
         android:layout_height="36sp"
         android:layout_margin="5dp"
         android:paddingStart="8dp"
-        android:paddingTop="8dp"
-        android:paddingEnd="8dp"
-        android:paddingBottom="8dp">
+        android:paddingTop="4dp"
+        android:paddingEnd="4dp"
+        android:paddingBottom="4dp">
+        <ImageButton
+            android:id="@+id/infoBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="#0000"
+            android:scaleX="1"
+            android:scaleY="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/todayItemCal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/information" />
 
         <TextView
             android:id="@+id/todayTaskName"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
@@ -32,10 +46,9 @@
             android:layout_marginStart="32dp"
             android:layout_toStartOf="@+id/todayTaskCheckbox"
             android:freezesText="true"
-
             android:text="Default Activity"
             android:textColor="#002952"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/todayTaskCheckbox"
@@ -62,13 +75,16 @@
             android:id="@+id/todayItemCal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="32dp"
             android:text="Default Cal"
             android:textColor="#637daf"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/todayTaskName"
             app:layout_constraintTop_toTopOf="parent" />
 
 

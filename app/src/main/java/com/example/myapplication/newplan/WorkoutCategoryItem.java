@@ -1,10 +1,10 @@
-package com.example.myapplication;
+package com.example.myapplication.newplan;
 
-public class workoutCategoryItem {
+public class WorkoutCategoryItem {
     public String categoryName;
     public int categoryImg;
 
-    public workoutCategoryItem(String input1, int input2){
+    public WorkoutCategoryItem(String input1, int input2){
         categoryName = input1;
         categoryImg = input2;
     }

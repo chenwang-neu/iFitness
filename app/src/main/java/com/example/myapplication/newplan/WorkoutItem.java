@@ -1,15 +1,15 @@
-package com.example.myapplication;
+package com.example.myapplication.newplan;
 
 import android.widget.Button;
 
-public class workoutItem {
+public class WorkoutItem {
     public String workoutName;
     public Boolean selected;
     public Button btn;
     public int cal;
     public String description;
 
-    public workoutItem(String input1, Boolean input2, Button input3, int input4, String input5){
+    public WorkoutItem(String input1, Boolean input2, Button input3, int input4, String input5){
         workoutName = input1;
         selected = input2;
         btn = input3;
