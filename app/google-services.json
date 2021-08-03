@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "308324676474",
+    "firebase_url": "https://ifitness-database-default-rtdb.firebaseio.com",
+    "project_id": "ifitness-database",
+    "storage_bucket": "ifitness-database.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308324676474:android:e06da899507393d84c5cc3",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "308324676474-5hsiptfq521es7q50t44gei9igd1baat.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEZmmiZqOGcQa4i8ix9Th7noFBF244U0Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "308324676474-5hsiptfq521es7q50t44gei9igd1baat.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
