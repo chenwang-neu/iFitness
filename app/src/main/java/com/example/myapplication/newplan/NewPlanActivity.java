@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.myapplication.current_schedule.ScheduledPlanActivity;
 import com.example.myapplication.R;
@@ -24,9 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class NewPlanActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     private ArrayList<DayItem> dayItemArrayList;
@@ -226,21 +223,25 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
         dayItemArrayList.add(sat);
         dayItemArrayList.add(sun);
 
+
+        // subject to change
         workoutItem1 = new WorkoutItem("Workout1", Boolean.FALSE,
-                findViewById(R.id.defaultSwimBtn), 800, "famous activity");
-        workoutItem3 = new WorkoutItem("Workout2", Boolean.FALSE,
-                findViewById(R.id.defaultRunningBtn), 500, "famous activity");
+                findViewById(R.id.defaultWorkout1), 800, "famous activity");
         workoutItem2 = new WorkoutItem("Workout3", Boolean.FALSE,
-                findViewById(R.id.defaultPushupBtn),
+                findViewById(R.id.defaultWorkout2),
                 1200, "famous activity");
+        workoutItem3 = new WorkoutItem("Workout2", Boolean.FALSE,
+                findViewById(R.id.defaultWorkout3), 500, "famous activity");
         workoutItem4 = new WorkoutItem("Workout4", Boolean.FALSE,
-                findViewById(R.id.defaultPushupBtn),
+                findViewById(R.id.defaultWorkout4),
                 1200, "famous activity");
 
         workoutItemArrayList = new ArrayList<WorkoutItem>();
         workoutItemArrayList.add(workoutItem1);
-        workoutItemArrayList.add(workoutItem3);
         workoutItemArrayList.add(workoutItem2);
+        workoutItemArrayList.add(workoutItem3);
+        workoutItemArrayList.add(workoutItem4);
+
 
         workoutCategoryArrayList = new ArrayList<>();
         workoutCategoryArrayList.add(new WorkoutCategoryItem("Chest", R.drawable.abs));
@@ -298,13 +299,13 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
             case R.id.sundayBtn:
                 onSelectedWeekdayAction(sun);
                 break;
-            case R.id.defaultSwimBtn:
+            case R.id.defaultWorkout1:
                 onSelectedWorkoutAction(workoutItem1);
                 break;
-            case R.id.defaultPushupBtn:
+            case R.id.defaultWorkout2:
                 onSelectedWorkoutAction(workoutItem2);
                 break;
-            case R.id.defaultRunningBtn:
+            case R.id.defaultWorkout3:
                 onSelectedWorkoutAction(workoutItem3);
                 break;
         }

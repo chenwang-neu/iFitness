@@ -260,10 +260,10 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/defaultCustomBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/defaultWorkout4" />
 
     <Button
-        android:id="@+id/defaultSwimBtn"
+        android:id="@+id/defaultWorkout1"
         android:layout_width="150sp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -278,7 +278,7 @@
         app:layout_constraintTop_toBottomOf="@+id/workoutCategorySpinner" />
 
     <Button
-        android:id="@+id/defaultPushupBtn"
+        android:id="@+id/defaultWorkout2"
         android:layout_width="150sp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -293,7 +293,7 @@
         app:layout_constraintTop_toBottomOf="@+id/workoutCategorySpinner" />
 
     <Button
-        android:id="@+id/defaultRunningBtn"
+        android:id="@+id/defaultWorkout3"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -305,10 +305,10 @@
         app:layout_constraintEnd_toStartOf="@+id/centerVline"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/defaultSwimBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/defaultWorkout1" />
 
     <Button
-        android:id="@+id/defaultCustomBtn"
+        android:id="@+id/defaultWorkout4"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -319,7 +319,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/centerVline"
-        app:layout_constraintTop_toBottomOf="@+id/defaultPushupBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/defaultWorkout2" />
 
     <TextView
         android:id="@+id/calNumTextview"
@@ -371,7 +371,7 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="80dp"
-        app:layout_constraintBottom_toTopOf="@+id/defaultPushupBtn"
+        app:layout_constraintBottom_toTopOf="@+id/defaultWorkout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/workoutTextview" />
