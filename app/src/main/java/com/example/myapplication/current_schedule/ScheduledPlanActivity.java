@@ -1,5 +1,6 @@
 package com.example.myapplication.current_schedule;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -16,13 +18,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.model.Exercise;
 import com.example.myapplication.newplan.DayItem;
 import com.example.myapplication.newplan.NewPlanActivity;
 import com.example.myapplication.newplan.WorkoutItem;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ScheduledPlanActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -38,16 +47,60 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
     public ImageButton infoButton;
     private ArrayList<DayItem> weekdayItemList;
     private DayItemAdapter dayAdapter;
+
+
+
+    //chou test here for database
+    List<Exercise> exerciseList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scheduled_plan);
-        displayDateAndTime();
-        buildRecyclerView();
-        initSpinner();
+
 
         // to be added - change checkbox status by database info.
         // handle screen rotation
+
+        //chou test here for database
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("exercises");
+        reference.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("into onDataChange: ", "!!!!!!!!!!!");
+                Log.d("The firebase data is: ", dataSnapshot.toString());
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Exercise exercise = snapshot.getValue(Exercise.class);
+                    Log.d("exercise content is !!!!!!!!!!!!!1:", exercise.toString());
+
+                    exerciseList.add(exercise);
+
+
+                    //add exercise to todayTaskList
+                    //todayTaskList.add(0, new WorkoutItem("Swim", Boolean.FALSE, null, 100,
+//                "famous activity swim"));
+                    String ename = exercise.getEname();
+                    int calories = exercise.getCalories();
+                    String description = exercise.getDescription();
+                    WorkoutItem workoutItem = new WorkoutItem(ename, Boolean.FALSE, null, calories,description);
+                    todayTaskList.add(workoutItem);
+                }
+                buildRecyclerView();
+                Log.d("The exerciseList is !!!!!!!!!!!!!!!!!!!!!!", String.valueOf(exerciseList.size()));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        displayDateAndTime();
+        initSpinner();
+        Log.d("The exerciselist at 0 is:", String.valueOf(exerciseList.size()));
 
     }
 
@@ -98,22 +151,22 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
     }
 
     // subject to change
-    public void fillRecyclerView(){
-        todayTaskList.add(0, new WorkoutItem("Swim", Boolean.FALSE, null, 100,
-                "famous activity swim"));
-        todayTaskList.add(0, new WorkoutItem("Push ups", Boolean.FALSE, null, 100, "too difficult" +
-                " to me "));
-        todayTaskList.add(0, new WorkoutItem("Dance", Boolean.FALSE, null, 100, "i love dance!"));
-        todayTaskList.add(0, new WorkoutItem("Jump", Boolean.FALSE, null, 100, "jump 1000 times " +
-                "a day"));
-        todayTaskList.add(0, new WorkoutItem("Basketball", Boolean.FALSE, null, 100, "wish i " +
-                "could be taller"));
-        todayTaskList.add(0, new WorkoutItem("Football", Boolean.FALSE, null, 100, "run run run"));
-        todayTaskList.add(0, new WorkoutItem("Tennis", Boolean.FALSE, null, 100, "Tennis is a racket sport that can be played individually against a single opponent (singles) or between two teams of two players each (doubles). Each player uses a tennis racket that is strung with cord to strike a hollow rubber ball covered with felt over or around a net and into the opponent's court. "));
-    }
+//    public void fillRecyclerView(){
+//        todayTaskList.add(0, new WorkoutItem("Swim", Boolean.FALSE, null, 100,
+//                "famous activity swim"));
+//        todayTaskList.add(0, new WorkoutItem("Push ups", Boolean.FALSE, null, 100, "too difficult" +
+//                " to me "));
+//        todayTaskList.add(0, new WorkoutItem("Dance", Boolean.FALSE, null, 100, "i love dance!"));
+//        todayTaskList.add(0, new WorkoutItem("Jump", Boolean.FALSE, null, 100, "jump 1000 times " +
+//                "a day"));
+//        todayTaskList.add(0, new WorkoutItem("Basketball", Boolean.FALSE, null, 100, "wish i " +
+//                "could be taller"));
+//        todayTaskList.add(0, new WorkoutItem("Football", Boolean.FALSE, null, 100, "run run run"));
+//        todayTaskList.add(0, new WorkoutItem("Tennis", Boolean.FALSE, null, 100, "Tennis is a racket sport that can be played individually against a single opponent (singles) or between two teams of two players each (doubles). Each player uses a tennis racket that is strung with cord to strike a hollow rubber ball covered with felt over or around a net and into the opponent's court. "));
+//    }
 
     public void buildRecyclerView(){
-        fillRecyclerView();
+        //fillRecyclerView();
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView = findViewById(R.id.todayListRecycler);
         mRecyclerView.setHasFixedSize(true);

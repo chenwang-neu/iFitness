@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
@@ -14,9 +15,18 @@ import android.widget.Toast;
 
 import com.example.myapplication.current_schedule.ScheduledPlanActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.model.Exercise;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class NewPlanActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     private ArrayList<DayItem> dayItemArrayList;
@@ -29,6 +39,12 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
     private ArrayList<WorkoutCategoryItem> workoutCategoryArrayList;
     private CategoryAdapter catAdapter;
 
+
+    //test firebase
+    DatabaseReference databaseReference;
+
+    private List<String> spinnerList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,23 +52,102 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
         setContentView(R.layout.new_plan);
         initializeDefault();
         calTextView = findViewById(R.id.calNumTextview);
-        initSpinner();
+        //initSpinner();
 
-    }
+        //use firebase show on spinner
 
-
-
-    private void initSpinner(){
         Spinner workoutCategorySpinner = findViewById(R.id.workoutCategorySpinner);
-        catAdapter = new CategoryAdapter(this, workoutCategoryArrayList);
-        workoutCategorySpinner.setAdapter(catAdapter);
-        workoutCategorySpinner.setOnItemSelectedListener(this);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("exercises");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int count = 0;
+                WorkoutCategoryItem workoutCategoryItem;
+
+                spinnerList.clear();
+                workoutCategoryArrayList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Exercise exercise = snapshot.getValue(Exercise.class);
+                    //add category to spinner list
+                    String category = exercise.getCategory();
+
+                    if (!spinnerList.contains(category)) {
+                        spinnerList.add(category);
+                        if (category.equals("Chests")) {
+                            workoutCategoryItem = new WorkoutCategoryItem(category, R.drawable.abs);
+                            workoutCategoryArrayList.add(workoutCategoryItem);
+                        } else if (category.equals("Backs")) {
+                            workoutCategoryItem = new WorkoutCategoryItem(category, R.drawable.back);
+                            workoutCategoryArrayList.add(workoutCategoryItem);
+                        } else if (category.equals("Shoulders")) {
+                            workoutCategoryItem = new WorkoutCategoryItem(category, R.drawable.arm);
+                            workoutCategoryArrayList.add(workoutCategoryItem);
+                        } else if(category.equals("Legs")) {
+                            workoutCategoryItem = new WorkoutCategoryItem(category, R.drawable.leg);
+                            workoutCategoryArrayList.add(workoutCategoryItem);
+                        }
+                    }
+
+                    //add same category's exercise
+                    if (category.equals("Legs")) {
+                        Log.d("Legs exerise !!!!!!!!!!!!!!!!", exercise.getEname());
+                        count++;
+
+                    }
+
+                }
+                Log.d("count is !!!!!!!!!!!!!!!!", String.valueOf(count));
+
+                catAdapter = new CategoryAdapter(NewPlanActivity.this, workoutCategoryArrayList);
+                workoutCategorySpinner.setAdapter(catAdapter);
+                workoutCategorySpinner.setOnItemSelectedListener(NewPlanActivity.this);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
+//    private void initSpinner(){
+//        Spinner workoutCategorySpinner = findViewById(R.id.workoutCategorySpinner);
+//        catAdapter = new CategoryAdapter(this, workoutCategoryArrayList);
+//        workoutCategorySpinner.setAdapter(catAdapter);
+//        workoutCategorySpinner.setOnItemSelectedListener(this);
+//    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//        WorkoutItem selectedCategory = parent.getItemAtPosition(position).getCategoryName();
-//        workoutItem1.getBtn().setText(selectedCategory);
+        WorkoutCategoryItem selectedCategory = (WorkoutCategoryItem) parent.getItemAtPosition(position);
+        String category = selectedCategory.getCategoryName().toString();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("exercises");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Exercise> categoryExercise = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Exercise exercise = snapshot.getValue(Exercise.class);
+                    if (exercise.getCategory().equals(category)) {
+//                        String ename = exercise.getEname();
+//                        workoutItem1.getBtn().setText(ename);
+                        categoryExercise.add(exercise);
+                    }
+                }
+                workoutItem1.getBtn().setText(categoryExercise.get(0).getEname());
+                workoutItem2.getBtn().setText(categoryExercise.get(1).getEname());
+                workoutItem3.getBtn().setText(categoryExercise.get(2).getEname());
+                workoutItem4.getBtn().setText(categoryExercise.get(3).getEname());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
 
