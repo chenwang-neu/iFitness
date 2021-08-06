@@ -42,7 +42,7 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
     public RecyclerView mRecyclerView;
     public RecyclerView.LayoutManager mLayoutManager;
     public TaskRecycleViewAdapter mAdapter;
-    public ArrayList<WorkoutItem> todayTaskList = new ArrayList<>();
+    public ArrayList<WorkoutItem> todayTaskList;
     public AlertDialog.Builder dialogBuilder;
     public AlertDialog dialog;
     public Button gotItBtn;
@@ -63,15 +63,9 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
         setContentView(R.layout.scheduled_plan);
         displayDateAndTime();
         initSpinner();
-
-
         // to be added - change checkbox status by database info.
         // handle screen rotation
-
         //chou test here for database
-
-
-
         //Log.d("The exerciselist at 0 is:", String.valueOf(exerciseList.size()));
 
     }
@@ -105,6 +99,7 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        todayTaskList = new ArrayList<>();
         List<String> selectedExerciseList = new ArrayList<>();
         List<Calendar> selectedDayExerciseList = new ArrayList<>();
 

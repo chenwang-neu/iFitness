@@ -405,6 +405,7 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
 
                 dataBaseHelper.addOneCalendar(calendar);
             }
+
         }
 
 
@@ -427,6 +428,8 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
 //                }
 //            }
 //        }
+//        dayLst.clear();
+//        exerciseLst.clear();
 
     }
 
