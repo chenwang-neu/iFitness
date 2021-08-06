@@ -18,10 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.model.Calendar;
 import com.example.myapplication.model.Exercise;
 import com.example.myapplication.newplan.DayItem;
 import com.example.myapplication.newplan.NewPlanActivity;
 import com.example.myapplication.newplan.WorkoutItem;
+import com.example.myapplication.service.DataBaseHelper;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,66 +54,36 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
 
     //chou test here for database
     List<Exercise> exerciseList = new ArrayList<>();
+    //List<Calendar> selectedDayExerciseList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scheduled_plan);
+        displayDateAndTime();
+        initSpinner();
 
 
         // to be added - change checkbox status by database info.
         // handle screen rotation
 
         //chou test here for database
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("exercises");
-        reference.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("into onDataChange: ", "!!!!!!!!!!!");
-                Log.d("The firebase data is: ", dataSnapshot.toString());
-
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Exercise exercise = snapshot.getValue(Exercise.class);
-                    Log.d("exercise content is !!!!!!!!!!!!!1:", exercise.toString());
-
-                    exerciseList.add(exercise);
 
 
-                    //add exercise to todayTaskList
-                    //todayTaskList.add(0, new WorkoutItem("Swim", Boolean.FALSE, null, 100,
-//                "famous activity swim"));
-                    String ename = exercise.getEname();
-                    int calories = exercise.getCalories();
-                    String description = exercise.getDescription();
-                    WorkoutItem workoutItem = new WorkoutItem(ename, Boolean.FALSE, null, calories,description);
-                    todayTaskList.add(workoutItem);
-                }
-                buildRecyclerView();
-                Log.d("The exerciseList is !!!!!!!!!!!!!!!!!!!!!!", String.valueOf(exerciseList.size()));
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        displayDateAndTime();
-        initSpinner();
-        Log.d("The exerciselist at 0 is:", String.valueOf(exerciseList.size()));
+        //Log.d("The exerciselist at 0 is:", String.valueOf(exerciseList.size()));
 
     }
 
     public void fillDayItem(){
-        mon = new DayItem("Monday", Boolean.FALSE, findViewById(R.id.mondayBtn));
-        tue = new DayItem("Tuesday", Boolean.FALSE, findViewById(R.id.tuesdayBtn));
-        wed = new DayItem("Wednesday", Boolean.FALSE, findViewById(R.id.wednesdayBtn));
-        thurs = new DayItem("Thursday", Boolean.FALSE, findViewById(R.id.thursdayBtn));
-        fri = new DayItem("Friday", Boolean.FALSE, findViewById(R.id.fridayBtn));
-        sat = new DayItem("Saturday", Boolean.FALSE, findViewById(R.id.saturdayBtn));
-        sun = new DayItem("Sunday", Boolean.FALSE, findViewById(R.id.sundayBtn));
+        mon = new DayItem("MON", Boolean.FALSE, findViewById(R.id.mondayBtn));
+        tue = new DayItem("TUES", Boolean.FALSE, findViewById(R.id.tuesdayBtn));
+        wed = new DayItem("WED", Boolean.FALSE, findViewById(R.id.wednesdayBtn));
+        thurs = new DayItem("THUR", Boolean.FALSE, findViewById(R.id.thursdayBtn));
+        fri = new DayItem("FRI", Boolean.FALSE, findViewById(R.id.fridayBtn));
+        sat = new DayItem("SAT", Boolean.FALSE, findViewById(R.id.saturdayBtn));
+        sun = new DayItem("SUN", Boolean.FALSE, findViewById(R.id.sundayBtn));
 
         weekdayItemList = new ArrayList<DayItem>();
         weekdayItemList.add(mon);
@@ -130,10 +102,63 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
         weekdaySpinner.setAdapter(dayAdapter);
         weekdaySpinner.setOnItemSelectedListener(this);
     }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String selectedDay = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), selectedDay, Toast.LENGTH_SHORT).show();
+        List<String> selectedExerciseList = new ArrayList<>();
+        List<Calendar> selectedDayExerciseList = new ArrayList<>();
+
+        DayItem selectedDay = (DayItem) parent.getItemAtPosition(position);
+
+        // get calendar list for selectedDay:
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(ScheduledPlanActivity.this);
+
+        selectedDayExerciseList = dataBaseHelper.getCalendarByDay(selectedDay.getWeekday());
+        Log.d("getCalendarByDay is !!!!!!!!!!!!!!!", String.valueOf(selectedDayExerciseList.toString()));
+
+        for (Calendar s : selectedDayExerciseList) {
+            if (s.getCname().equals(selectedDay.getWeekday())) {
+                selectedExerciseList.add(s.getEname());
+            }
+        }
+        Log.d("Exercises list include !!!!!!!!!!!!!!!", String.valueOf(selectedExerciseList.toString()));
+
+
+        //exercises for the day are in selectedExercisesList, then find them from firebase and show them in the frontpage
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("exercises");
+        reference.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Exercise exercise = snapshot.getValue(Exercise.class);
+
+                    if (selectedExerciseList.contains(exercise.getEname())) {
+                      //  Log.d("exercise content is !!!!!!!!!!!!!1:", exercise.toString());
+//                        //add exercise to todayTaskList
+//                        //todayTaskList.add(0, new WorkoutItem("Swim", Boolean.FALSE, null, 100,
+////                "famous activity swim"));
+                        String ename = exercise.getEname();
+                        int calories = exercise.getCalories();
+                        String description = exercise.getDescription();
+                        WorkoutItem workoutItem = new WorkoutItem(ename, Boolean.FALSE, null, calories, description);
+                        todayTaskList.add(workoutItem);
+//                    }
+                    }
+                }
+                buildRecyclerView();
+                Log.d("The exerciseList is !!!!!!!!!!!!!!!!!!!!!!", String.valueOf(exerciseList.size()));
+//                selectedExerciseList.clear();
+//                exerciseList.clear();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     @Override
