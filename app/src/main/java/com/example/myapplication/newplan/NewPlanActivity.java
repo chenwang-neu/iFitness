@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.current_schedule.ScheduledPlanActivity;
 import com.example.myapplication.R;
@@ -299,24 +300,19 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
     // deal with work out selection
     public void onSelectedWorkoutAction(WorkoutItem workout){
         String exerciseName = workout.getWorkoutName();
-
         //if this means client choose this exercise, add it to exerciseList
         if (workout.getStatus() == Boolean.FALSE){
             exerciseLst.add(exerciseName);
-
             workout.getBtn().setBackgroundColor(Color.parseColor("#002952"));
-            //
-            //calories calcutor!!!!!!!!!!!!!!!!!!!
-            //currentCalories = currentCalories + workout.getCal();
+                //
+                //calories calcutor!!!!!!!!!!!!!!!!!!!
+                //currentCalories = currentCalories + workout.getCal();
 
             currentCalories += workout.getCal();
 
             calTextView.setText(String.valueOf(currentCalories));
             workout.changeSelectionStatus(Boolean.TRUE);
-
-
         } else {
-
             //if this means unclick the exercise button, remove this exercise from the exerciseLst
             int pos = exerciseLst.indexOf(exerciseName);
             if (pos >= 0) {
@@ -327,8 +323,6 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
             currentCalories = currentCalories - workout.getCal();
             calTextView.setText(String.valueOf(currentCalories));
             workout.changeSelectionStatus(Boolean.FALSE);
-
-
         }
     }
 
@@ -395,6 +389,13 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
         //if click confirm button
 
         //1. add to calendar database
+
+        if (dayLst.size() == 0 || exerciseLst.size() == 0) {
+            //Toast.makeText(NewPlanActivity.this, "You have not select day or exercise yet. Please select first", Toast.LENGTH_SHORT);
+            Toast.makeText(NewPlanActivity.this, "You have not select day or exercise yet. Please select first", Toast.LENGTH_SHORT).show();
+            Log.d("can not be 0", "You have not select day or exercise yet. Please select first");
+            return;
+        }
         DataBaseHelper dataBaseHelper = new DataBaseHelper(NewPlanActivity.this);
         for (String day : dayLst) {
             for (String exer : exerciseLst) {
