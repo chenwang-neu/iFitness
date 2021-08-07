@@ -239,7 +239,7 @@
         android:id="@+id/workoutTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="24dp"
         android:text="WORKOUT"
         android:textColor="#002952"
         android:textSize="24sp"
@@ -265,7 +265,7 @@
     <Button
         android:id="@+id/defaultWorkout1"
         android:layout_width="150sp"
-        android:layout_height="wrap_content"
+        android:layout_height="64sp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="#637daf"
@@ -280,7 +280,7 @@
     <Button
         android:id="@+id/defaultWorkout2"
         android:layout_width="150sp"
-        android:layout_height="wrap_content"
+        android:layout_height="64sp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:backgroundTint="#637daf"
@@ -295,7 +295,7 @@
     <Button
         android:id="@+id/defaultWorkout3"
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_height="64sp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="#637daf"
@@ -310,7 +310,7 @@
     <Button
         android:id="@+id/defaultWorkout4"
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_height="64sp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:backgroundTint="#637daf"

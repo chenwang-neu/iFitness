@@ -35,21 +35,19 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
     private WorkoutItem workoutItem1, workoutItem2, workoutItem3, workoutItem4;
     private Integer currentCalories;
     private TextView calTextView;
-    private HashMap<String, String> confirmedNewPlan;
     private ArrayList<WorkoutCategoryItem> workoutCategoryArrayList;
     private CategoryAdapter catAdapter;
-
-
-
+    WorkoutCategoryItem selectedCategory;
 
     //test firebase
     DatabaseReference databaseReference;
 
-
     //days list and exercise list for days: if day not selected or exercises not selected, will throw someting
     List<String> dayLst = new ArrayList<>();
     List<String> exerciseLst = new ArrayList<>();
-    List<Exercise> exeLst = new ArrayList<>();
+    ArrayList<Integer> pendingIndexList = new ArrayList<>();
+    ArrayList<String> pendingCategoryList = new ArrayList<>();
+
 
 
     //total calories from use selected
@@ -64,7 +62,6 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
         setContentView(R.layout.new_plan);
         initializeDefault();
         calTextView = findViewById(R.id.calNumTextview);
-        //initSpinner();
 
         //use firebase show on spinner
 
@@ -103,28 +100,25 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
                 }
                 catAdapter = new CategoryAdapter(NewPlanActivity.this, workoutCategoryArrayList);
                 workoutCategorySpinner.setAdapter(catAdapter);
+
                 workoutCategorySpinner.setOnItemSelectedListener(NewPlanActivity.this);
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
     }
-//    private void initSpinner(){
-//        Spinner workoutCategorySpinner = findViewById(R.id.workoutCategorySpinner);
-//        catAdapter = new CategoryAdapter(this, workoutCategoryArrayList);
-//        workoutCategorySpinner.setAdapter(catAdapter);
-//        workoutCategorySpinner.setOnItemSelectedListener(this);
-//    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         clearSelectedWorkout(view);
 
-        WorkoutCategoryItem selectedCategory = (WorkoutCategoryItem) parent.getItemAtPosition(position);
+
+        selectedCategory = (WorkoutCategoryItem) parent.getItemAtPosition(position);
+        restoreWorkoutItemColor(pendingCategoryList, pendingIndexList);
+        Log.d("onselected", selectedCategory.getCategoryName());
+
         String category = selectedCategory.getCategoryName().toString();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("exercises");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -134,8 +128,6 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Exercise exercise = snapshot.getValue(Exercise.class);
                     if (exercise.getCategory().equals(category)) {
-//                        String ename = exercise.getEname();
-//                        workoutItem1.getBtn().setText(ename);
                         categoryExercise.add(exercise);
                     }
                 }
@@ -158,8 +150,6 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
                 workoutItem2.setDescription(categoryExercise.get(1).getDescription());
                 workoutItem3.setDescription(categoryExercise.get(2).getDescription());
                 workoutItem4.setDescription(categoryExercise.get(3).getDescription());
-
-
             }
 
             @Override
@@ -170,62 +160,59 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
 
     }
 
-
-
-
     private void init(Bundle savedInstanceState) { // called in onCreate()
         onRestoreInstanceState(savedInstanceState);
     }
 
-    // handles screen rotation
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putInt("calories", currentCalories);
-        for (int i = 0; i < 7; i++){
-            if (dayItemArrayList.get(i).getStatus() == Boolean.FALSE){
-                outState.putInt("weekdayRecord"+i, 0);
-
-            } else {
-                outState.putInt("weekdayRecord"+i, 1);
-            }
-        }
-        for (int i = 0; i < 4; i++){
-            if (workoutItemArrayList.get(i).getStatus() == Boolean.FALSE){
-                outState.putInt("workoutRecord"+i, 0);
-            } else {
-                outState.putInt("workoutRecord"+i, 1);
-            }
-        }
-        super.onSaveInstanceState(outState);
-    }
-
-
-    protected void onRestoreInstanceState(Bundle savedInstanceState){
-        super.onRestoreInstanceState(savedInstanceState);
-
-        if (savedInstanceState != null){
-            currentCalories = savedInstanceState.getInt("calories");
-            for (int i = 0; i < 7; i++){
-                if (savedInstanceState.getInt("weekdayRecord"+i) == 0){
-                    dayItemArrayList.get(i).changeSelectionStatus(Boolean.FALSE);
-
-                } else{
-                    dayItemArrayList.get(i).changeSelectionStatus(Boolean.TRUE);
-                    dayItemArrayList.get(i).getBtn().setBackgroundColor(Color.parseColor("#002952"));
-                }
-            }
-            for (int i = 0; i < 4; i++){
-                if (savedInstanceState.getInt("workoutRecord"+i) == 0){
-                    workoutItemArrayList.get(i).changeSelectionStatus(Boolean.FALSE);
-
-                } else{
-                    workoutItemArrayList.get(i).changeSelectionStatus(Boolean.TRUE);
-                    workoutItemArrayList.get(i).getBtn().setBackgroundColor(Color.parseColor("#002952"));
-                }
-            }
-        }
-    }
-
+//    // handles screen rotation
+//    @Override
+//    protected void onSaveInstanceState(@NonNull Bundle outState) {
+//        outState.putInt("tempCategory", currentCalories);
+//        for (int i = 0; i < 7; i++){
+//            if (dayItemArrayList.get(i).getStatus() == Boolean.FALSE){
+//                outState.putInt("weekdayRecord"+i, 0);
+//
+//            } else {
+//                outState.putInt("weekdayRecord"+i, 1);
+//            }
+//        }
+//        for (int i = 0; i < 4; i++){
+//            if (workoutItemArrayList.get(i).getStatus() == Boolean.FALSE){
+//                outState.putInt("workoutRecord"+i, 0);
+//            } else {
+//                outState.putInt("workoutRecord"+i, 1);
+//            }
+//        }
+//        super.onSaveInstanceState(outState);
+//    }
+//
+//
+//    protected void onRestoreInstanceState(Bundle savedInstanceState){
+//        super.onRestoreInstanceState(savedInstanceState);
+//
+//        if (savedInstanceState != null){
+//            currentCalories = savedInstanceState.getInt("calories");
+//            for (int i = 0; i < 7; i++){
+//                if (savedInstanceState.getInt("weekdayRecord"+i) == 0){
+//                    dayItemArrayList.get(i).changeSelectionStatus(Boolean.FALSE);
+//
+//                } else{
+//                    dayItemArrayList.get(i).changeSelectionStatus(Boolean.TRUE);
+//                    dayItemArrayList.get(i).getBtn().setBackgroundColor(Color.parseColor("#002952"));
+//                }
+//            }
+//            for (int i = 0; i < 4; i++){
+//                if (savedInstanceState.getInt("workoutRecord"+i) == 0){
+//                    workoutItemArrayList.get(i).changeSelectionStatus(Boolean.FALSE);
+//
+//                } else{
+//                    workoutItemArrayList.get(i).changeSelectionStatus(Boolean.TRUE);
+//                    workoutItemArrayList.get(i).getBtn().setBackgroundColor(Color.parseColor("#002952"));
+//                }
+//            }
+//        }
+//    }
+//
 
     public void initializeDefault(){
         currentCalories = 0;
@@ -265,6 +252,7 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
         workoutItemArrayList.add(workoutItem3);
         workoutItemArrayList.add(workoutItem4);
 
+        selectedCategory = new WorkoutCategoryItem("", R.drawable.abs);
 
         workoutCategoryArrayList = new ArrayList<>();
         workoutCategoryArrayList.add(new WorkoutCategoryItem("Chest", R.drawable.abs));
@@ -273,10 +261,22 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
         workoutCategoryArrayList.add(new WorkoutCategoryItem("Leg", R.drawable.leg));
     }
 
+    public void restoreWorkoutItemColor(ArrayList<String> pendingCategoryList,
+                                        ArrayList<Integer> tempSelectedIdx){
+        for (int i = 0; i < workoutItemArrayList.size(); i++){
+            workoutItemArrayList.get(i).setSelected(false);
+        }
+        for (int i =0; i < pendingCategoryList.size(); i++){
+            if (pendingCategoryList.get(i) == selectedCategory.getCategoryName()){
+                workoutItemArrayList.get(tempSelectedIdx.get(i)).getBtn().setBackgroundColor(Color.parseColor("#002952"));
+                workoutItemArrayList.get(tempSelectedIdx.get(i)).setSelected(true);
+            }
+        }
+    }
+
     // deal with week day selection
     public void onSelectedWeekdayAction(DayItem day){
         String dayName = day.getWeekday();
-
         //if this means client choose this day, add it to the daylist
         if (day.getStatus() == Boolean.FALSE){
             day.getBtn().setBackgroundColor(Color.parseColor("#002952"));
@@ -298,20 +298,22 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
     }
 
     // deal with work out selection
-    public void onSelectedWorkoutAction(WorkoutItem workout){
+    public void onSelectedWorkoutAction(WorkoutItem workout, int idx){
+
         String exerciseName = workout.getWorkoutName();
         //if this means client choose this exercise, add it to exerciseList
         if (workout.getStatus() == Boolean.FALSE){
             exerciseLst.add(exerciseName);
+
             workout.getBtn().setBackgroundColor(Color.parseColor("#002952"));
-                //
-                //calories calcutor!!!!!!!!!!!!!!!!!!!
-                //currentCalories = currentCalories + workout.getCal();
 
             currentCalories += workout.getCal();
-
             calTextView.setText(String.valueOf(currentCalories));
             workout.changeSelectionStatus(Boolean.TRUE);
+
+            pendingIndexList.add(idx);
+            pendingCategoryList.add(selectedCategory.getCategoryName());
+
         } else {
             //if this means unclick the exercise button, remove this exercise from the exerciseLst
             int pos = exerciseLst.indexOf(exerciseName);
@@ -323,6 +325,10 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
             currentCalories = currentCalories - workout.getCal();
             calTextView.setText(String.valueOf(currentCalories));
             workout.changeSelectionStatus(Boolean.FALSE);
+
+            pendingIndexList.remove(pendingIndexList.indexOf(idx));
+            pendingCategoryList.remove(selectedCategory.getCategoryName());
+
         }
     }
 
@@ -350,16 +356,16 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
                 onSelectedWeekdayAction(sun);
                 break;
             case R.id.defaultWorkout1:
-                onSelectedWorkoutAction(workoutItem1);
+                onSelectedWorkoutAction(workoutItem1, 0);
                 break;
             case R.id.defaultWorkout2:
-                onSelectedWorkoutAction(workoutItem2);
+                onSelectedWorkoutAction(workoutItem2, 1);
                 break;
             case R.id.defaultWorkout3:
-                onSelectedWorkoutAction(workoutItem3);
+                onSelectedWorkoutAction(workoutItem3, 2);
                 break;
             case R.id.defaultWorkout4:
-                onSelectedWorkoutAction(workoutItem4);
+                onSelectedWorkoutAction(workoutItem4, 3);
                 break;
         }
     }
@@ -370,14 +376,15 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
         //backend clear dayLst and exerciseLst
         dayLst.clear();
         exerciseLst.clear();
-
+        pendingCategoryList.clear();
+        pendingIndexList.clear();
 
         //front end
-        for (int i = 0; i < 7; i++){
+        for (int i = 0; i < dayItemArrayList.size(); i++){
             dayItemArrayList.get(i).changeSelectionStatus(Boolean.FALSE);
             dayItemArrayList.get(i).getBtn().setBackgroundColor(Color.parseColor("#637daf"));
         }
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < workoutItemArrayList.size(); i++){
             workoutItemArrayList.get(i).changeSelectionStatus(Boolean.FALSE);
             workoutItemArrayList.get(i).getBtn().setBackgroundColor(Color.parseColor("#637daf"));
         }
@@ -391,7 +398,6 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
         //1. add to calendar database
 
         if (dayLst.size() == 0 || exerciseLst.size() == 0) {
-            //Toast.makeText(NewPlanActivity.this, "You have not select day or exercise yet. Please select first", Toast.LENGTH_SHORT);
             Toast.makeText(NewPlanActivity.this, "You have not select day or exercise yet. Please select first", Toast.LENGTH_SHORT).show();
             Log.d("can not be 0", "You have not select day or exercise yet. Please select first");
             return;
@@ -401,46 +407,26 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
             for (String exer : exerciseLst) {
                 //1. create calendar class
                 Calendar calendar = new Calendar(-1, day, exer);
-
                 //2. add calendar to calendar database
 
                 dataBaseHelper.addOneCalendar(calendar);
             }
 
         }
-
-
         //test calendar database
         Log.d("The calendar database!!!!!!!!!!!!", dataBaseHelper.getAllCalendar().toString());
-
-        //dataBaseHelper.deleteAllCalendar();
-        //Log.d("The calendar database after delete all!!!!!!!!!!!!", dataBaseHelper.getAllCalendar().toString());
 
         //2. clear frontend
 
         clearBtnAction(view);
 
-//        confirmedNewPlan = new HashMap<String, String>(); // hashmap
-//        for (int i = 0; i < 7; i++){
-//            for (int j = 0; j < 4; j++){
-//                if (dayItemArrayList.get(i).getStatus() && workoutItemArrayList.get(j).getStatus()){
-//                    confirmedNewPlan.put(dayItemArrayList.get(i).getWeekday(),
-//                            workoutItemArrayList.get(j).getWorkoutName());
-//                }
-//            }
-//        }
-//        dayLst.clear();
-//        exerciseLst.clear();
-
     }
 
     public void clearSelectedWorkout(View view){
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < workoutItemArrayList.size(); i++){
             workoutItemArrayList.get(i).changeSelectionStatus(Boolean.FALSE);
             workoutItemArrayList.get(i).getBtn().setBackgroundColor(Color.parseColor("#637daf"));
         }
-//        currentCalories = 0;
-//        calTextView.setText(String.valueOf(currentCalories));
     }
 
 
