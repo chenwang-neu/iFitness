@@ -23,6 +23,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.model.RunningData;
+
 
 public class RunningTrackerActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -39,7 +41,6 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
     private boolean showSteps = false;
     private double latitude = 0.0;
     private int stepsMeasured = 0;
-
     private double speedkmH = 0;
     private String startTime, stopTime;
     int maxId = 0;
@@ -77,20 +78,33 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
                         stopTime= currentDateAndTime;
                     }
 
+                    timeCalculator.countAndShowTrainingTime(startTime,stopTime,showTime);
 
                     distanceKm=(double) intent.getExtras().get("distance")/1000;
                     totalDistanceKm +=distanceKm;
+                    totalDistanceKm = roundingCalculator.roundingValue(totalDistanceKm,2);
 
 
                     calories = bodyMass*distanceKm;
                     caloriesTotal+= calories;
                     showDistance.setText(String.valueOf(totalDistanceKm));
 
+                    caloriesTotal = roundingCalculator.roundingValue(calories,2);
                     showCalories.setText(String.valueOf(caloriesTotal));
                     showSpeed.setText(String.valueOf(speedkmH));
 
-
                     count.setText(String.valueOf(stepsMeasured));
+
+                    RunningData data = new RunningData();
+
+                    data.setLatitude(latitude);
+                    data.setLongitude(longitude);
+                    data.setSpeed(speedkmH);
+                    data.setSteps(stepsMeasured);
+                    data.setDate(currentDateAndTime);
+                    data.setBurntCalories(calories);
+                    data.setDistanceKm(distanceKm);
+                    data.setBodyMass(bodyMass);
                 }
 
 
@@ -182,7 +196,6 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
             resetVariables();
 
             enableTrainingEditField();
-
         });
 
     }
