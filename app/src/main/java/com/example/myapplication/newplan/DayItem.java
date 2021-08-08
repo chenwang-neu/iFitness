@@ -13,7 +13,6 @@ public class DayItem {
         weekday = input1;
         selected = input2;
         btn = input3;
-
     }
 
 
