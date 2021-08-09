@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -58,11 +59,13 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
     protected void onResume() {
 
         super.onResume();
+        Log.d("test ", "1");
         if (broadcastReceiver == null) {
+            Log.d("test ", "2");
             broadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-
+                    Log.d("test ", "3");
                     Double latitude = (Double) intent.getExtras().get("latitude");
                     Double longitude = (Double)  intent.getExtras().get("longitude");
                     Double speedkmH = (Double) intent.getExtras().get("speed");
@@ -105,6 +108,12 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
                     data.setBurntCalories(calories);
                     data.setDistanceKm(distanceKm);
                     data.setBodyMass(bodyMass);
+
+                    Log.d("running data 1", latitude.toString());
+                    Log.d("running data 2", longitude.toString());
+                    Log.d("running data 3", currentDateAndTime);
+                    Log.d("running data 4", String.valueOf(bodyMass));
+                    Log.d("running data 5", String.valueOf(distanceKm));
                 }
 
 
@@ -157,6 +166,7 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
         if (!runtime_permissions()) enable_buttons();
 
 
+
     }
 
     private void enable_buttons() {
@@ -175,7 +185,7 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
                     disableTrainingEditField();
                     Intent i = new Intent(getApplicationContext(), GPSService.class);
                     startService(i);
-
+                    Log.d("test ", "????");
                     alreadyMeasured = false;
                     showSteps = true;
                 }
