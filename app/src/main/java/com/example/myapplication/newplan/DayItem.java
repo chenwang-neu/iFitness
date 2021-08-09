@@ -1,15 +1,15 @@
-package com.example.myapplication;
+package com.example.myapplication.newplan;
 
 import android.widget.Button;
 
-public class dayItem {
+public class DayItem {
     public String weekday;
     public Boolean selected;
     public Button btn;
 
 
 
-    public dayItem(String input1, Boolean input2, Button input3){
+    public DayItem(String input1, Boolean input2, Button input3){
         weekday = input1;
         selected = input2;
         btn = input3;

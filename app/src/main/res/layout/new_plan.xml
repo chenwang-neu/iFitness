@@ -5,21 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f0f0f0"
-    tools:context=".CreateNewPlanActivity">
+    tools:context=".newplan.NewPlanActivity">
 
     <Button
         android:id="@+id/mondayBtn"
         android:layout_width="40sp"
         android:layout_height="40sp"
-        android:backgroundTint="#637daf"
+        android:layout_marginEnd="8dp"
+
         android:onClick="onButtonClick"
         android:text="M"
         android:textSize="12sp"
+        android:backgroundTint="#637daf"
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toTopOf="@+id/hLine3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/vLine1"
+        app:layout_constraintEnd_toStartOf="@+id/tuesdayBtn"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -27,16 +29,16 @@
         android:id="@+id/tuesdayBtn"
         android:layout_width="40sp"
         android:layout_height="40sp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:backgroundTint="#637daf"
         android:onClick="onButtonClick"
         android:text="T"
         android:textSize="12sp"
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toTopOf="@+id/hLine3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/mondayBtn"
+        app:layout_constraintEnd_toStartOf="@+id/wednesdayBtn"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -44,16 +46,16 @@
         android:id="@+id/wednesdayBtn"
         android:layout_width="40sp"
         android:layout_height="40sp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:backgroundTint="#637daf"
         android:onClick="onButtonClick"
         android:text="W"
         android:textSize="12sp"
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toTopOf="@+id/hLine3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/tuesdayBtn"
+        app:layout_constraintEnd_toStartOf="@+id/thursdayBtn"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -61,7 +63,6 @@
         android:id="@+id/thursdayBtn"
         android:layout_width="40sp"
         android:layout_height="40sp"
-        android:layout_marginStart="8dp"
         android:backgroundTint="#637daf"
         android:onClick="onButtonClick"
         android:text="R"
@@ -69,8 +70,8 @@
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toTopOf="@+id/hLine3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/wednesdayBtn"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -130,8 +131,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:backgroundTint="#6b9ede"
-        android:onClick="openRunningTracker"
-        android:text="RUNNING TRACKER"
+
+        android:text="@string/left_navigation"
         android:textColor="#ffffff"
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -147,7 +148,7 @@
         android:layout_height="0dp"
         android:backgroundTint="#6b9ede"
         android:onClick="openToday"
-        android:text="Today's Plan"
+        android:text="@string/center_navigation"
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/vLine2"
@@ -159,7 +160,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:backgroundTint="#34517f"
-        android:text="New Plan Creator"
+        android:text="@string/right_navigation"
         android:textColor="#ffffff"
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -177,7 +178,7 @@
         android:layout_marginBottom="73dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintGuide_percent="0.85"
+        app:layout_constraintGuide_percent="0.90"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -189,7 +190,7 @@
         android:layout_marginBottom="73dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintGuide_percent="0.2"
+        app:layout_constraintGuide_percent=".2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -211,27 +212,26 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/vLine3"
+        android:id="@+id/centerVline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.07"
+        app:layout_constraintGuide_percent="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/daysTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:text="Days"
         android:textColor="#002952"
-        android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/hLine3"
-        app:layout_constraintEnd_toStartOf="@+id/mondayBtn"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/vLine3"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/thursdayBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -239,112 +239,103 @@
         android:id="@+id/workoutTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="48dp"
         android:text="WORKOUT"
         android:textColor="#002952"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/vLine1"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/vLine3"
-        app:layout_constraintTop_toTopOf="@+id/hLine3" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thursdayBtn" />
 
     <TextView
         android:id="@+id/totalCalTextview"
         android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="Total Calories"
         android:textColor="#002952"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/clearBtn"
-        app:layout_constraintEnd_toStartOf="@+id/vLine1"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/vLine3"
-        app:layout_constraintTop_toBottomOf="@+id/defaultCustomBtn"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/defaultCustomBtn" />
 
     <Button
         android:id="@+id/defaultSwimBtn"
-        android:layout_width="0dp"
+        android:layout_width="150sp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
         android:backgroundTint="#637daf"
         android:onClick="onButtonClick"
-        android:text="Swimming"
+        android:text="workout1"
         app:cornerRadius="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/calNumTextview"
-        app:layout_constraintEnd_toStartOf="@+id/vLine2"
+        app:layout_constraintEnd_toStartOf="@+id/centerVline"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/vLine1"
-        app:layout_constraintTop_toBottomOf="@+id/defaultPushupBtn"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workoutCategorySpinner" />
 
     <Button
         android:id="@+id/defaultPushupBtn"
-        android:layout_width="0dp"
+        android:layout_width="150sp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:backgroundTint="#637daf"
         android:onClick="onButtonClick"
-        android:text="Push Ups"
+        android:text="workout2"
         app:cornerRadius="0dp"
-        app:layout_constraintEnd_toStartOf="@+id/vLine2"
-        app:layout_constraintStart_toStartOf="@+id/vLine1"
-        app:layout_constraintTop_toTopOf="@+id/hLine3" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/centerVline"
+        app:layout_constraintTop_toBottomOf="@+id/workoutCategorySpinner" />
 
     <Button
         android:id="@+id/defaultRunningBtn"
-        android:layout_width="0dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="8dp"
         android:backgroundTint="#637daf"
         android:onClick="onButtonClick"
-        android:text="Running"
+        android:text="workout3"
         app:cornerRadius="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias=".5"
-        app:layout_constraintStart_toStartOf="@+id/vLine2"
-        app:layout_constraintTop_toTopOf="@+id/hLine3" />
+        app:layout_constraintEnd_toStartOf="@+id/centerVline"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/defaultSwimBtn" />
 
     <Button
         android:id="@+id/defaultCustomBtn"
-        android:layout_width="0dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
         android:backgroundTint="#637daf"
-        android:text="Custom"
+        android:text="workout4"
         app:cornerRadius="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/newPlanBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/vLine2"
-        app:layout_constraintTop_toBottomOf="@+id/defaultPushupBtn"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/centerVline"
+        app:layout_constraintTop_toBottomOf="@+id/defaultPushupBtn" />
 
     <TextView
         android:id="@+id/calNumTextview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:freezesText="true"
+        android:layout_marginTop="16dp"
         android:text="0"
+        android:freezesText="true"
         android:textAlignment="center"
-        android:textColor="#637daf"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:textColor="#637daf"
         app:layout_constraintEnd_toStartOf="@+id/vLine2"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.525"
         app:layout_constraintStart_toStartOf="@+id/vLine1"
-        app:layout_constraintTop_toBottomOf="@+id/defaultCustomBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/totalCalTextview" />
 
     <Button
         android:id="@+id/clearBtn"
@@ -363,9 +354,9 @@
         android:id="@+id/confirmBtn"
         android:layout_width="108sp"
         android:layout_height="wrap_content"
-        android:backgroundTint="#637daf"
         android:onClick="confirmBtnAction"
         android:text="Confirm"
+        android:backgroundTint="#637daf"
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toTopOf="@+id/hLine1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -377,13 +368,12 @@
         android:id="@+id/workoutCategorySpinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/totalCalTextview"
-        app:layout_constraintEnd_toStartOf="@+id/vLine1"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/vLine3"
-        app:layout_constraintTop_toBottomOf="@+id/workoutTextview"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/defaultPushupBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workoutTextview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
