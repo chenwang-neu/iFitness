@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.service;
 
 import android.annotation.SuppressLint;
 import android.app.Service;

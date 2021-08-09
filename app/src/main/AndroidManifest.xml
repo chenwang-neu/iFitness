@@ -17,8 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".customPage"></activity>
-        <activity android:name=".activity_runningTracker" />
+<!--        <activity android:name=".customPage"></activity>-->
+        <activity android:name=".running_tracker.RunningTrackerActivity" />
         <activity android:name=".newplan.NewPlanActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -33,7 +33,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".running_tracker.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".current_schedule.ScheduledPlanActivity">
             <intent-filter>
@@ -43,7 +43,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".GPSService" />
+        <service android:name=".service.GPSService" />
     </application>
 
 </manifest>

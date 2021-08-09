@@ -19,6 +19,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.newplan.DayItem;
 import com.example.myapplication.newplan.NewPlanActivity;
 import com.example.myapplication.newplan.WorkoutItem;
+import com.example.myapplication.running_tracker.RunningTrackerActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -167,10 +168,10 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
     }
 
 
-//    public void openRunningTracker(View view) {
-//        Intent intent = new Intent(this, activity_runningTracker.class);
-//        startActivity(intent);
-//    }
+    public void openRunningTracker(View view) {
+        Intent intent = new Intent(this, RunningTrackerActivity.class);
+        startActivity(intent);
+    }
 
     public void openNewPlan(View view) {
         Intent intent = new Intent(this, NewPlanActivity.class);

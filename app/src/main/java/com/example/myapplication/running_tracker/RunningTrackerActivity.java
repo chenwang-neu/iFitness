@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.running_tracker;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
@@ -24,7 +24,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.R;
 import com.example.myapplication.model.RunningData;
+import com.example.myapplication.service.GPSService;
 
 
 public class RunningTrackerActivity extends AppCompatActivity implements SensorEventListener {
@@ -59,13 +61,10 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
     protected void onResume() {
 
         super.onResume();
-        Log.d("test ", "1");
         if (broadcastReceiver == null) {
-            Log.d("test ", "2");
             broadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    Log.d("test ", "3");
                     Double latitude = (Double) intent.getExtras().get("latitude");
                     Double longitude = (Double)  intent.getExtras().get("longitude");
                     Double speedkmH = (Double) intent.getExtras().get("speed");
@@ -109,11 +108,11 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
                     data.setDistanceKm(distanceKm);
                     data.setBodyMass(bodyMass);
 
-                    Log.d("running data 1", latitude.toString());
-                    Log.d("running data 2", longitude.toString());
-                    Log.d("running data 3", currentDateAndTime);
-                    Log.d("running data 4", String.valueOf(bodyMass));
-                    Log.d("running data 5", String.valueOf(distanceKm));
+//                    Log.d("running data 1", latitude.toString());
+//                    Log.d("running data 2", longitude.toString());
+//                    Log.d("running data 3", currentDateAndTime);
+//                    Log.d("running data 4", String.valueOf(bodyMass));
+//                    Log.d("running data 5", String.valueOf(distanceKm));
                 }
 
 

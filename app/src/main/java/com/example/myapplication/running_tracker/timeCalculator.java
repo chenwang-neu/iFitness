@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.running_tracker;
 
 import android.widget.TextView;
 
