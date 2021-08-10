@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.model;
 
 public class RunningData {
         private double Longitude;
@@ -10,7 +10,7 @@ public class RunningData {
         private Double distanceKm;
         private Double bodyMass;
 
-        RunningData() {}
+        public RunningData() {}
 
         public double getLongitude() { return Longitude; }
 

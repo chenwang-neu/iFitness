@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.running_tracker;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
@@ -18,10 +18,15 @@ import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.myapplication.R;
+import com.example.myapplication.model.RunningData;
+import com.example.myapplication.service.GPSService;
 
 
 public class RunningTrackerActivity extends AppCompatActivity implements SensorEventListener {
@@ -39,7 +44,6 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
     private boolean showSteps = false;
     private double latitude = 0.0;
     private int stepsMeasured = 0;
-
     private double speedkmH = 0;
     private String startTime, stopTime;
     int maxId = 0;
@@ -61,7 +65,6 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
             broadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-
                     Double latitude = (Double) intent.getExtras().get("latitude");
                     Double longitude = (Double)  intent.getExtras().get("longitude");
                     Double speedkmH = (Double) intent.getExtras().get("speed");
@@ -77,20 +80,39 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
                         stopTime= currentDateAndTime;
                     }
 
+                    timeCalculator.countAndShowTrainingTime(startTime,stopTime,showTime);
 
                     distanceKm=(double) intent.getExtras().get("distance")/1000;
                     totalDistanceKm +=distanceKm;
+                    totalDistanceKm = roundingCalculator.roundingValue(totalDistanceKm,2);
 
 
                     calories = bodyMass*distanceKm;
                     caloriesTotal+= calories;
                     showDistance.setText(String.valueOf(totalDistanceKm));
 
+                    caloriesTotal = roundingCalculator.roundingValue(calories,2);
                     showCalories.setText(String.valueOf(caloriesTotal));
                     showSpeed.setText(String.valueOf(speedkmH));
 
-
                     count.setText(String.valueOf(stepsMeasured));
+
+                    RunningData data = new RunningData();
+
+                    data.setLatitude(latitude);
+                    data.setLongitude(longitude);
+                    data.setSpeed(speedkmH);
+                    data.setSteps(stepsMeasured);
+                    data.setDate(currentDateAndTime);
+                    data.setBurntCalories(calories);
+                    data.setDistanceKm(distanceKm);
+                    data.setBodyMass(bodyMass);
+
+//                    Log.d("running data 1", latitude.toString());
+//                    Log.d("running data 2", longitude.toString());
+//                    Log.d("running data 3", currentDateAndTime);
+//                    Log.d("running data 4", String.valueOf(bodyMass));
+//                    Log.d("running data 5", String.valueOf(distanceKm));
                 }
 
 
@@ -143,6 +165,7 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
         if (!runtime_permissions()) enable_buttons();
 
 
+
     }
 
     private void enable_buttons() {
@@ -161,7 +184,7 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
                     disableTrainingEditField();
                     Intent i = new Intent(getApplicationContext(), GPSService.class);
                     startService(i);
-
+                    Log.d("test ", "????");
                     alreadyMeasured = false;
                     showSteps = true;
                 }
@@ -182,7 +205,6 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
             resetVariables();
 
             enableTrainingEditField();
-
         });
 
     }
