@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
-import com.example.myapplication.RunningTrackerActivity;
+import com.example.myapplication.running_tracker.RunningTrackerActivity;
 import com.example.myapplication.model.Calendar;
 import com.example.myapplication.model.Exercise;
 import com.example.myapplication.newplan.DayItem;
