@@ -39,7 +39,7 @@ import java.util.List;
 public class ScheduledPlanActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private DayItem mon, tue, wed, thurs, fri, sat, sun;
-    public TextView displayDate, displayTime, dialogName, dialogDescription, dialogCal;
+    public TextView displayDate, displayCal, dialogName, dialogDescription, dialogCal;
     public RecyclerView mRecyclerView;
     public RecyclerView.LayoutManager mLayoutManager;
     public TaskRecycleViewAdapter mAdapter;
@@ -51,11 +51,8 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
     private ArrayList<DayItem> weekdayItemList;
     private DayItemAdapter dayAdapter;
 
-
-
     //chou test here for database
     List<Exercise> exerciseList = new ArrayList<>();
-    //List<Calendar> selectedDayExerciseList = new ArrayList<>();
 
 
     @Override
@@ -64,11 +61,15 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
         setContentView(R.layout.scheduled_plan);
         displayDateAndTime();
         initSpinner();
-        // to be added - change checkbox status by database info.
-        // handle screen rotation
-        //chou test here for database
-        //Log.d("The exerciselist at 0 is:", String.valueOf(exerciseList.size()));
+    }
 
+    public void displayTotalCal(){
+        displayCal = findViewById(R.id.displayCalories);
+        int total_cal = 0;
+        for (int i = 0; i < todayTaskList.size(); i++){
+            total_cal += todayTaskList.get(i).getCal();
+        }
+        displayCal.setText(total_cal + " Cal.");
     }
 
     public void fillDayItem(){
@@ -110,15 +111,12 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
         DataBaseHelper dataBaseHelper = new DataBaseHelper(ScheduledPlanActivity.this);
 
         selectedDayExerciseList = dataBaseHelper.getCalendarByDay(selectedDay.getWeekday());
-        Log.d("getCalendarByDay is !!!!!!!!!!!!!!!", String.valueOf(selectedDayExerciseList.toString()));
 
         for (Calendar s : selectedDayExerciseList) {
             if (s.getCname().equals(selectedDay.getWeekday())) {
                 selectedExerciseList.add(s.getEname());
             }
         }
-        Log.d("Exercises list include !!!!!!!!!!!!!!!", String.valueOf(selectedExerciseList.toString()));
-
 
         //exercises for the day are in selectedExercisesList, then find them from firebase and show them in the frontpage
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("exercises");
@@ -131,22 +129,15 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
                     Exercise exercise = snapshot.getValue(Exercise.class);
 
                     if (selectedExerciseList.contains(exercise.getEname())) {
-                      //  Log.d("exercise content is !!!!!!!!!!!!!1:", exercise.toString());
-//                        //add exercise to todayTaskList
-//                        //todayTaskList.add(0, new WorkoutItem("Swim", Boolean.FALSE, null, 100,
-////                "famous activity swim"));
                         String ename = exercise.getEname();
-                        int calories = exercise.getCalories();
+                        int calories = exercise.getCalories() * 60;
                         String description = exercise.getDescription();
                         WorkoutItem workoutItem = new WorkoutItem(ename, Boolean.FALSE, null, calories, description);
                         todayTaskList.add(workoutItem);
-//                    }
                     }
                 }
                 buildRecyclerView();
-                Log.d("The exerciseList is !!!!!!!!!!!!!!!!!!!!!!", String.valueOf(exerciseList.size()));
-//                selectedExerciseList.clear();
-//                exerciseList.clear();
+                displayTotalCal();
             }
 
             @Override

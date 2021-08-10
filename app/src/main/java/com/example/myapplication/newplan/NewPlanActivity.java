@@ -146,10 +146,10 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
                 workoutItem3.getBtn().setText(categoryExercise.get(2).getEname());
                 workoutItem4.getBtn().setText(categoryExercise.get(3).getEname());
 
-                workoutItem1.setCal(categoryExercise.get(0).getCalories());
-                workoutItem2.setCal(categoryExercise.get(1).getCalories());
-                workoutItem3.setCal(categoryExercise.get(2).getCalories());
-                workoutItem4.setCal(categoryExercise.get(3).getCalories());
+                workoutItem1.setCal((categoryExercise.get(0).getCalories()) * 60);
+                workoutItem2.setCal((categoryExercise.get(0).getCalories()) * 60);
+                workoutItem3.setCal((categoryExercise.get(0).getCalories()) * 60);
+                workoutItem4.setCal((categoryExercise.get(0).getCalories()) * 60);
 
                 workoutItem1.setWorkoutName(categoryExercise.get(0).getEname());
                 workoutItem2.setWorkoutName(categoryExercise.get(1).getEname());
@@ -246,7 +246,7 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
                     dayList.add(savedInstanceState.getString(PENDING_DAYLIST + i));
                 }
             }
-            Log.d("kk restore", dayList.toString());
+
 
             if (savedInstanceState.containsKey(PENDING_EXERCISTLIST_SIZE)){
                 int exerciseListSize = savedInstanceState.getInt(PENDING_EXERCISTLIST_SIZE);
@@ -337,7 +337,6 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
             day.changeSelectionStatus(Boolean.TRUE);
             dayList.add(dayName);
             pendingDaysList.add(idx);
-//            Log.d("kk onSelectedWeekdayAction", dayList.toString());
         } else {
             // unclick this day, remove this day from daylist
             day.getBtn().setBackgroundColor(Color.parseColor("#637daf"));
@@ -347,7 +346,6 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
             if (pos >= 0) {
                 dayList.remove(pos);
                 pendingDaysList.remove(pendingDaysList.indexOf(idx));
-//                Log.d("kk onSelectedWeekdayAction2", dayList.toString());
             }
 
         }
