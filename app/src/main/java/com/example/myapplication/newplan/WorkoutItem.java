@@ -9,6 +9,30 @@ public class WorkoutItem {
     public int cal;
     public String description;
 
+    public void setWorkoutName(String workoutName) {
+        this.workoutName = workoutName;
+    }
+
+    public Boolean getSelected() {
+        return selected;
+    }
+
+    public void setSelected(Boolean selected) {
+        this.selected = selected;
+    }
+
+    public void setBtn(Button btn) {
+        this.btn = btn;
+    }
+
+    public void setCal(int cal) {
+        this.cal = cal;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public WorkoutItem(String input1, Boolean input2, Button input3, int input4, String input5){
         workoutName = input1;
         selected = input2;

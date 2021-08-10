@@ -37,7 +37,7 @@
         android:id="@+id/runningTrackerBtn"
         android:layout_width="0dp"
         android:layout_height="0dp"
-
+        android:onClick="openRunningTracker"
         android:text="@string/left_navigation"
         android:textColor="#ffffff"
         android:backgroundTint="#6b9ede"

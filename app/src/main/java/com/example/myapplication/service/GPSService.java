@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.service;
 
 import android.annotation.SuppressLint;
 import android.app.Service;
@@ -96,7 +96,8 @@ public class GPSService extends Service {
         locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         if (isGPSEnabled) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 5, listener);
+            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 5, listener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, listener);
         } else {
             Toast.makeText(getApplicationContext(), "Please turn on the GPS and restart the app.", Toast.LENGTH_LONG).show();
         }

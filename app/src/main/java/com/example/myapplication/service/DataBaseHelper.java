@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import com.example.myapplication.model.Calendar;
+import com.example.myapplication.model.Exercise;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,8 +77,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             do {
                 int cid1 = cursor.getInt(0);
                 String cname1 = cursor.getString(1);
-                int uid1 = cursor.getInt(2);
-                String ename1 = cursor.getString(3);
+                String ename1 = cursor.getString(2);
 
                 Calendar calendar = new Calendar(cid1, cname1, ename1);
 //                calendar.getCname().toString();
@@ -94,6 +94,38 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public List<Calendar> getCalendarByDay(String day) {
+        List<Calendar> calendarList = new ArrayList<>();
+
+        String queryString = "SELECT * FROM CALENDAR_TABLE WHERE cname = '" + day + "'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+
+                int cid1 = cursor.getInt(0);
+                String cname1 = cursor.getString(1);
+                String ename1 = cursor.getString(2);
+
+                Calendar calendar = new Calendar(cid1, cname1, ename1);
+//                calendar.getCname().toString();
+
+                if (cname1.equals(day)) {
+                    calendarList.add(calendar);
+                }
+
+            } while (cursor.moveToNext());
+        } else {
+            //do nothing if empty;
+        }
+        cursor.close();
+        db.close();
+
+
+
+        return calendarList;
+    }
 
     public boolean deleteOneCalendar(int deleteCid) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -106,5 +138,31 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
 
     }
+
+    public boolean deleteAllCalendar() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryString = "DELETE FROM " + CALENDAR_TABLE;
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            return true;
+        } else {
+            return false;
+        }
+        //db.execSQL("delete from "+ CALENDAR_TABLE);
+    }
+
+
+//    public int getCalendarsRows() {
+//        SQLiteDatabase db  = this.getWritableDatabase();
+//
+//        int count = 0;
+//        String query = "select count(*) from " + CALENDAR_TABLE;
+//        Cursor cursor = db.rawQuery(query, null);
+//        while (cursor.moveToFirst()) {
+//            count = cursor.getCount();
+//        }
+//        return count;
+//    }
+
 
 }

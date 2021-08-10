@@ -261,11 +261,11 @@
         app:layout_constraintEnd_toStartOf="@+id/vLine1"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/vLine3"
-        app:layout_constraintTop_toBottomOf="@+id/defaultCustomBtn"
+        app:layout_constraintTop_toBottomOf="@+id/defaultWorkout4"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/defaultSwimBtn"
+        android:id="@+id/defaultWorkout1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -273,17 +273,16 @@
         android:layout_marginEnd="4dp"
         android:backgroundTint="#637daf"
         android:onClick="onButtonClick"
-        android:text="Swimming"
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toTopOf="@+id/calNumTextview"
         app:layout_constraintEnd_toStartOf="@+id/vLine2"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/vLine1"
-        app:layout_constraintTop_toBottomOf="@+id/defaultPushupBtn"
+        app:layout_constraintTop_toBottomOf="@+id/defaultWorkout2"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/defaultPushupBtn"
+        android:id="@+id/defaultWorkout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -291,14 +290,13 @@
         android:layout_marginEnd="4dp"
         android:backgroundTint="#637daf"
         android:onClick="onButtonClick"
-        android:text="Push Ups"
         app:cornerRadius="0dp"
         app:layout_constraintEnd_toStartOf="@+id/vLine2"
         app:layout_constraintStart_toStartOf="@+id/vLine1"
         app:layout_constraintTop_toTopOf="@+id/hLine3" />
 
     <Button
-        android:id="@+id/defaultRunningBtn"
+        android:id="@+id/defaultWorkout3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -306,7 +304,6 @@
         android:layout_marginEnd="4dp"
         android:backgroundTint="#637daf"
         android:onClick="onButtonClick"
-        android:text="Running"
         app:cornerRadius="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias=".5"
@@ -314,19 +311,19 @@
         app:layout_constraintTop_toTopOf="@+id/hLine3" />
 
     <Button
-        android:id="@+id/defaultCustomBtn"
+        android:id="@+id/defaultWorkout4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
         android:backgroundTint="#637daf"
-        android:text="Custom"
         app:cornerRadius="0dp"
+        android:onClick="onButtonClick"
         app:layout_constraintBottom_toTopOf="@+id/newPlanBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/vLine2"
-        app:layout_constraintTop_toBottomOf="@+id/defaultPushupBtn"
+        app:layout_constraintTop_toBottomOf="@+id/defaultWorkout2"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -343,7 +340,7 @@
         app:layout_constraintEnd_toStartOf="@+id/vLine2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/vLine1"
-        app:layout_constraintTop_toBottomOf="@+id/defaultCustomBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/defaultWorkout4" />
 
     <Button
         android:id="@+id/clearBtn"
