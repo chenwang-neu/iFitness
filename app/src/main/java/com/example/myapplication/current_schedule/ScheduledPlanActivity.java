@@ -3,9 +3,11 @@ package com.example.myapplication.current_schedule;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,7 +45,7 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
     public RecyclerView mRecyclerView;
     public RecyclerView.LayoutManager mLayoutManager;
     public TaskRecycleViewAdapter mAdapter;
-    public ArrayList<WorkoutItem> todayTaskList;
+    public ArrayList<WorkoutItem> todayTaskList = new ArrayList<>();
     public AlertDialog.Builder dialogBuilder;
     public AlertDialog dialog;
     public Button gotItBtn;
@@ -59,17 +61,34 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scheduled_plan);
-        displayDateAndTime();
-        initSpinner();
+        init();
+
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                Toast.makeText(ScheduledPlanActivity.this, "Delete an item", Toast.LENGTH_SHORT).show();
+                int position = viewHolder.getLayoutPosition();
+                todayTaskList.remove(position);
+                mAdapter.notifyItemRemoved(position);
+                Log.d("kk debug", todayTaskList.toString());
+
+            }
+        });
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
+
     }
 
-    public void displayTotalCal(){
-        displayCal = findViewById(R.id.displayCalories);
-        int total_cal = 0;
-        for (int i = 0; i < todayTaskList.size(); i++){
-            total_cal += todayTaskList.get(i).getCal();
-        }
-        displayCal.setText(total_cal + " Cal.");
+    private void init() {
+        displayDateAndTime();
+        initSpinner();
+        buildRecyclerView();
     }
 
     public void fillDayItem(){
@@ -99,17 +118,29 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
         weekdaySpinner.setOnItemSelectedListener(this);
     }
 
+    public void displayTotalCal(){
+        displayCal = findViewById(R.id.displayCalories);
+        int total_cal = 0;
+        for (int i = 0; i < todayTaskList.size(); i++){
+            total_cal += todayTaskList.get(i).getCal();
+        }
+        displayCal.setText(total_cal + " Cal.");
+    }
+
+    public void displayDateAndTime(){
+        @SuppressLint("SimpleDateFormat") String currentDayInWeekString = new SimpleDateFormat("MMMM d, yyyy").format(new Date());
+        displayDate = findViewById(R.id.displayDate);
+        displayDate.setText(currentDayInWeekString);
+    }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        todayTaskList = new ArrayList<>();
         List<String> selectedExerciseList = new ArrayList<>();
         List<Calendar> selectedDayExerciseList = new ArrayList<>();
-
         DayItem selectedDay = (DayItem) parent.getItemAtPosition(position);
 
         // get calendar list for selectedDay:
         DataBaseHelper dataBaseHelper = new DataBaseHelper(ScheduledPlanActivity.this);
-
         selectedDayExerciseList = dataBaseHelper.getCalendarByDay(selectedDay.getWeekday());
 
         for (Calendar s : selectedDayExerciseList) {
@@ -118,22 +149,23 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
             }
         }
 
-        //exercises for the day are in selectedExercisesList, then find them from firebase and show them in the frontpage
+        // exercises for the day are in selectedExercisesList, then find them from firebase and
+        // show them in the frontpage
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("exercises");
         reference.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                todayTaskList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Exercise exercise = snapshot.getValue(Exercise.class);
-
                     if (selectedExerciseList.contains(exercise.getEname())) {
                         String ename = exercise.getEname();
                         int calories = exercise.getCalories() * 60;
                         String description = exercise.getDescription();
                         WorkoutItem workoutItem = new WorkoutItem(ename, Boolean.FALSE, null, calories, description);
                         todayTaskList.add(workoutItem);
+                        mAdapter.notifyItemInserted(0);
                     }
                 }
                 buildRecyclerView();
@@ -142,53 +174,27 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                return;
             }
         });
-
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
+        return;
     }
 
-    public void displayDateAndTime(){
-//        String currentDateString = new SimpleDateFormat("MMMM d yyyy").format(new Date());
-        String currentDayInWeekString = new SimpleDateFormat("MMMM d, yyyy").format(new Date());
-        displayDate = findViewById(R.id.displayDate);
-//        displayTime = findViewById(R.id.displayWeekday);
-        displayDate.setText(currentDayInWeekString);
-//        displayTime.setText(currentDateString);
-    }
-
-    // subject to change
-//    public void fillRecyclerView(){
-//        todayTaskList.add(0, new WorkoutItem("Swim", Boolean.FALSE, null, 100,
-//                "famous activity swim"));
-//        todayTaskList.add(0, new WorkoutItem("Push ups", Boolean.FALSE, null, 100, "too difficult" +
-//                " to me "));
-//        todayTaskList.add(0, new WorkoutItem("Dance", Boolean.FALSE, null, 100, "i love dance!"));
-//        todayTaskList.add(0, new WorkoutItem("Jump", Boolean.FALSE, null, 100, "jump 1000 times " +
-//                "a day"));
-//        todayTaskList.add(0, new WorkoutItem("Basketball", Boolean.FALSE, null, 100, "wish i " +
-//                "could be taller"));
-//        todayTaskList.add(0, new WorkoutItem("Football", Boolean.FALSE, null, 100, "run run run"));
-//        todayTaskList.add(0, new WorkoutItem("Tennis", Boolean.FALSE, null, 100, "Tennis is a racket sport that can be played individually against a single opponent (singles) or between two teams of two players each (doubles). Each player uses a tennis racket that is strung with cord to strike a hollow rubber ball covered with felt over or around a net and into the opponent's court. "));
-//    }
 
     public void buildRecyclerView(){
-        //fillRecyclerView();
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView = findViewById(R.id.todayListRecycler);
         mRecyclerView.setHasFixedSize(true);
-        mAdapter = new TaskRecycleViewAdapter(todayTaskList);
 
+        mAdapter = new TaskRecycleViewAdapter(todayTaskList);
         ItemClickListener itemClickListener = new ItemClickListener() {
             @Override
             public void onItemClick(int position) {
-//                WorkoutItem currentItem = todayTaskList.get(position);
-//                showDescriptionPage(currentItem);
+                return;
             }
 
             @Override
@@ -199,8 +205,8 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
         };
 
         mAdapter.setOnItemClickListener(itemClickListener);
-        mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(mLayoutManager);
     }
 
     // click tennis -> show info.
@@ -217,7 +223,7 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
 
         dialogName.setText(item.workoutName);
         dialogDescription.setText(item.description);
-        dialogCal.setText(String.valueOf(item.cal) + " Cal.");
+        dialogCal.setText(item.cal + " Cal.");
 
         dialogBuilder.setView(descriptionPage);
         dialog = dialogBuilder.create();
