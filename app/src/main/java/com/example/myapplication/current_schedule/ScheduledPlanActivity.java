@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -55,6 +56,7 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
 
     //chou test here for database
     List<Exercise> exerciseList = new ArrayList<>();
+    private SQLiteDatabase mDatabase;
 
 
     @Override
@@ -73,6 +75,10 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+//                DataBaseHelper dbHelper = new DataBaseHelper(ScheduledPlanActivity.this);
+//                mDatabase = dbHelper.getWritableDatabase();
+//                dbHelper.deleteOneCalendar((int)viewHolder.itemView.getTag());
+
                 Toast.makeText(ScheduledPlanActivity.this, "Delete an item", Toast.LENGTH_SHORT).show();
                 int position = viewHolder.getLayoutPosition();
                 todayTaskList.remove(position);

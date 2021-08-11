@@ -151,6 +151,20 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         //db.execSQL("delete from "+ CALENDAR_TABLE);
     }
 
+    public boolean deleteCalendarByDay(String day) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryString = "DELETE FROM CALENDAR_TABLE WHERE cname = '" + day + "'";
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            return true;
+        } else {
+            return false;
+        }
+        //db.execSQL("delete from "+ CALENDAR_TABLE);
+    }
+
+
+
 
 //    public int getCalendarsRows() {
 //        SQLiteDatabase db  = this.getWritableDatabase();
