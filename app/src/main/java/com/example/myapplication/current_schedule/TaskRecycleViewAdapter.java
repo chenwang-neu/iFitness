@@ -56,8 +56,8 @@ public class TaskRecycleViewAdapter extends RecyclerView.Adapter<TaskRecycleView
 
     @Override
     public int getItemCount() {
-        return mCursor.getCount();
-        //return todayTaskList.size();
+//        return mCursor.getCount();
+        return todayTaskList.size();
     }
 
 //    public void swapCursor(Cursor newCursor) {

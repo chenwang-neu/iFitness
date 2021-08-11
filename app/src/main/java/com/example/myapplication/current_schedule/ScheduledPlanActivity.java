@@ -57,6 +57,7 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
     //chou test here for database
     List<Exercise> exerciseList = new ArrayList<>();
     private SQLiteDatabase mDatabase;
+    DayItem selectedDay;
 
 
     @Override
@@ -65,30 +66,23 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
         setContentView(R.layout.scheduled_plan);
         init();
 
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-//                DataBaseHelper dbHelper = new DataBaseHelper(ScheduledPlanActivity.this);
-//                mDatabase = dbHelper.getWritableDatabase();
-//                dbHelper.deleteOneCalendar((int)viewHolder.itemView.getTag());
-
-                Toast.makeText(ScheduledPlanActivity.this, "Delete an item", Toast.LENGTH_SHORT).show();
-                int position = viewHolder.getLayoutPosition();
-                todayTaskList.remove(position);
-                mAdapter.notifyItemRemoved(position);
-                Log.d("kk debug", todayTaskList.toString());
-
-            }
-        });
-        itemTouchHelper.attachToRecyclerView(mRecyclerView);
-
+//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+//
+//            @Override
+//            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+//                return false;
+//            }
+//
+//            @Override
+//            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+//                Toast.makeText(ScheduledPlanActivity.this, "Delete an item", Toast.LENGTH_SHORT).show();
+//                int position = viewHolder.getLayoutPosition();
+//                todayTaskList.remove(position);
+//                mAdapter.notifyItemRemoved(position);
+//                // remove data from database
+//            }
+//        });
+//        itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     private void init() {
@@ -96,7 +90,6 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
         initSpinner();
         buildRecyclerView();
     }
-
     public void fillDayItem(){
         mon = new DayItem("MON", Boolean.FALSE, findViewById(R.id.mondayBtn));
         tue = new DayItem("TUES", Boolean.FALSE, findViewById(R.id.tuesdayBtn));
@@ -143,8 +136,8 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         List<String> selectedExerciseList = new ArrayList<>();
         List<Calendar> selectedDayExerciseList = new ArrayList<>();
-        DayItem selectedDay = (DayItem) parent.getItemAtPosition(position);
-
+//        DayItem selectedDay = (DayItem) parent.getItemAtPosition(position);
+        selectedDay = (DayItem) parent.getItemAtPosition(position);
         // get calendar list for selectedDay:
         DataBaseHelper dataBaseHelper = new DataBaseHelper(ScheduledPlanActivity.this);
         selectedDayExerciseList = dataBaseHelper.getCalendarByDay(selectedDay.getWeekday());
@@ -243,7 +236,19 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
         });
     }
 
+    public void deleteAll(View view){
+        for (int i = 0; i < todayTaskList.size(); i++){
+            todayTaskList.get(i).changeSelectionStatus(Boolean.TRUE);
+        }
 
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(ScheduledPlanActivity.this);
+        dataBaseHelper.deleteCalendarByDay(selectedDay.getWeekday());
+
+        todayTaskList.clear();
+        displayTotalCal();
+
+        buildRecyclerView();
+    }
     public void openRunningTracker(View view) {
         Intent intent = new Intent(this, RunningTrackerActivity.class);
         startActivity(intent);
