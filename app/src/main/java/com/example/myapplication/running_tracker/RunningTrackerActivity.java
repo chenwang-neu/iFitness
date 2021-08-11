@@ -19,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,7 +27,10 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.RunningData;
+import com.example.myapplication.newplan.NewPlanActivity;
 import com.example.myapplication.service.GPSService;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class RunningTrackerActivity extends AppCompatActivity implements SensorEventListener {
@@ -37,7 +41,7 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
     private BroadcastReceiver broadcastReceiver;
     LocationManager lm;
     private SensorManager sensorManager;
-
+    DatabaseReference runningRef;
     boolean activityRunning;
     private float initialAmount = 0;
     private boolean alreadyMeasured = false;
@@ -97,6 +101,7 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
 
                     count.setText(String.valueOf(stepsMeasured));
 
+                    runningRef = FirebaseDatabase.getInstance().getReference().child("running");
                     RunningData data = new RunningData();
 
                     data.setLatitude(latitude);
@@ -108,11 +113,8 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
                     data.setDistanceKm(distanceKm);
                     data.setBodyMass(bodyMass);
 
-//                    Log.d("running data 1", latitude.toString());
-//                    Log.d("running data 2", longitude.toString());
-//                    Log.d("running data 3", currentDateAndTime);
-//                    Log.d("running data 4", String.valueOf(bodyMass));
-//                    Log.d("running data 5", String.valueOf(distanceKm));
+                    maxId+=1;
+                    if (maxId % 10 == 0) runningRef.child(String.valueOf(maxId)).setValue(data);
                 }
 
 
@@ -163,8 +165,6 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
         showTime = findViewById(R.id.txtTime);
 
         if (!runtime_permissions()) enable_buttons();
-
-
 
     }
 
@@ -287,6 +287,11 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    public void openMap(View view) {
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
     }
 
 }
