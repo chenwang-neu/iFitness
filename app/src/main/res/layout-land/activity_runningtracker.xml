@@ -9,10 +9,12 @@
 
     <TextView
         android:id="@+id/txtDistance"
-        android:layout_width="110dp"
+        android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="-"
+
+        android:textColor="#637daf"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/txtKm4"
         app:layout_constraintStart_toStartOf="@+id/txtKm4"
@@ -99,10 +101,11 @@
 
     <TextView
         android:id="@+id/txtTime"
-        android:layout_width="245dp"
+        android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="-"
+        android:textColor="#637daf"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/btnStop"
         app:layout_constraintEnd_toStartOf="@+id/vLine2"
@@ -112,10 +115,11 @@
 
     <TextView
         android:id="@+id/txtSteps"
-        android:layout_width="110dp"
+        android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="-"
+        android:textColor="#637daf"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/btnStart"
         app:layout_constraintEnd_toEndOf="@+id/txtKm5"
@@ -146,6 +150,7 @@
         android:layout_marginStart="16dp"
         android:ems="10"
         android:hint="Please enter your weight in kg"
+        android:textColor="#637daf"
         android:inputType="textPersonName"
         android:maxLength="22"
         app:layout_constraintBottom_toBottomOf="@+id/textView3"
@@ -156,16 +161,17 @@
 
     <TextView
         android:id="@+id/txtCalories"
-        android:layout_width="110dp"
+        android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="-"
+        android:textColor="#637daf"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/txtCalories2"
-        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintHorizontal_bias=".5"
         app:layout_constraintStart_toStartOf="@+id/txtCalories2"
         app:layout_constraintTop_toBottomOf="@+id/txtCalories2"
         app:layout_constraintVertical_bias="0.0" />
@@ -186,11 +192,12 @@
 
     <TextView
         android:id="@+id/txtSpeed"
-        android:layout_width="110dp"
+        android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_marginEnd="4dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="-"
+        android:textColor="#637daf"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/txtKm"
         app:layout_constraintEnd_toEndOf="@+id/txtSpeed2"
