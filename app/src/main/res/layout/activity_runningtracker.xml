@@ -69,28 +69,35 @@
 
     <Button
         android:id="@+id/btnStart"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="16dp"
         android:width="150dp"
         android:text="Start"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/runningTrackerBtn"
+        app:layout_constraintEnd_toStartOf="@+id/vLine2"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editBodyMass"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/btnStop"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="16dp"
         android:width="150dp"
         android:text="Stop"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/newPlanBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/vLine1"
         app:layout_constraintTop_toBottomOf="@+id/editBodyMass"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -134,9 +141,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="Body mass [kg]"
+        android:text="Weight[kg]"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -152,12 +159,12 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
-        android:hint="mass[kg]"
+        android:hint="weight[kg]"
         android:inputType="textPersonName"
+        android:maxLength="22"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        android:maxLength="22"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
         android:id="@+id/txtCalories"
@@ -217,5 +224,79 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editBodyMass" />
+
+
+    <Button
+        android:id="@+id/runningTrackerBtn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:backgroundTint="#34517f"
+        android:onClick="openRunningTracker"
+        android:text="@string/left_navigation"
+        android:textColor="#ffffff"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/vLine1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/hLine1"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <Button
+        android:id="@+id/todayPlanBtn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:backgroundTint="#6b9ede"
+        android:text="@string/center_navigation"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/vLine2"
+        app:layout_constraintStart_toStartOf="@+id/vLine1"
+        app:layout_constraintTop_toTopOf="@+id/hLine1" />
+
+    <Button
+        android:id="@+id/newPlanBtn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:backgroundTint="#6b9ede"
+        android:onClick="openNewPlan"
+        android:text="@string/right_navigation"
+        android:textColor="#ffffff"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/vLine2"
+        app:layout_constraintTop_toTopOf="@+id/hLine1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/hLine1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="658dp"
+        android:layout_marginBottom="73dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.90"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vLine1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.33"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vLine2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.66"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
