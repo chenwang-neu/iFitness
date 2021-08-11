@@ -19,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.RunningData;
+import com.example.myapplication.newplan.NewPlanActivity;
 import com.example.myapplication.service.GPSService;
 
 
@@ -287,6 +289,18 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+
+
+    public void openRunningTracker(View view) {
+        Intent intent = new Intent(this, RunningTrackerActivity.class);
+        startActivity(intent);
+    }
+
+    public void openNewPlan(View view) {
+        Intent intent = new Intent(this, NewPlanActivity.class);
+        startActivity(intent);
     }
 
 }
