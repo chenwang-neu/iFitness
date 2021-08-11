@@ -38,17 +38,17 @@
         android:id="@+id/runningTrackerBtn"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:backgroundTint="#6b9ede"
         android:onClick="openRunningTracker"
         android:text="@string/left_navigation"
         android:textColor="#ffffff"
-        android:backgroundTint="#6b9ede"
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/vLine1"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/hLine1"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/todayPlanBtn"
@@ -101,7 +101,7 @@
         android:layout_marginBottom="73dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintGuide_percent="0.85"
+        app:layout_constraintGuide_percent="0.8515815"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -141,9 +141,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         app:layout_constrainedHeight="true"
-        app:layout_constraintBottom_toTopOf="@+id/hLine1"
+        app:layout_constraintBottom_toTopOf="@+id/deleteAll"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/hLine3"
@@ -188,5 +187,14 @@
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="@+id/textView4" />
 
-
+    <Button
+        android:id="@+id/deleteAll"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="deleteAll"
+        android:text="Delete\n All Tasks"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/hLine1"
+        app:layout_constraintEnd_toStartOf="@+id/vLine2"
+        app:layout_constraintStart_toStartOf="@+id/vLine1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

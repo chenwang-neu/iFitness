@@ -240,15 +240,13 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
         for (int i = 0; i < todayTaskList.size(); i++){
             todayTaskList.get(i).changeSelectionStatus(Boolean.TRUE);
         }
-
         DataBaseHelper dataBaseHelper = new DataBaseHelper(ScheduledPlanActivity.this);
         dataBaseHelper.deleteCalendarByDay(selectedDay.getWeekday());
-
         todayTaskList.clear();
         displayTotalCal();
-
         buildRecyclerView();
     }
+
     public void openRunningTracker(View view) {
         Intent intent = new Intent(this, RunningTrackerActivity.class);
         startActivity(intent);
