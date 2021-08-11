@@ -62,27 +62,23 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scheduled_plan);
         init();
-
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                Toast.makeText(ScheduledPlanActivity.this, "Delete an item", Toast.LENGTH_SHORT).show();
-                int position = viewHolder.getLayoutPosition();
-                todayTaskList.remove(position);
-                mAdapter.notifyItemRemoved(position);
-                Log.d("kk debug", todayTaskList.toString());
-
-            }
-        });
-        itemTouchHelper.attachToRecyclerView(mRecyclerView);
-
+//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+//
+//            @Override
+//            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+//                return false;
+//            }
+//
+//            @Override
+//            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+//                Toast.makeText(ScheduledPlanActivity.this, "Delete an item", Toast.LENGTH_SHORT).show();
+//                int position = viewHolder.getLayoutPosition();
+//                todayTaskList.remove(position);
+//                mAdapter.notifyItemRemoved(position);
+//                // remove data from database
+//            }
+//        });
+//        itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     private void init() {
@@ -90,7 +86,6 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
         initSpinner();
         buildRecyclerView();
     }
-
     public void fillDayItem(){
         mon = new DayItem("MON", Boolean.FALSE, findViewById(R.id.mondayBtn));
         tue = new DayItem("TUES", Boolean.FALSE, findViewById(R.id.tuesdayBtn));
@@ -237,7 +232,12 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
         });
     }
 
-
+    public void deleteAll(View view){
+        for (int i = 0; i < todayTaskList.size(); i++){
+            todayTaskList.get(i).changeSelectionStatus(Boolean.TRUE);
+        }
+        buildRecyclerView();
+    }
     public void openRunningTracker(View view) {
         Intent intent = new Intent(this, RunningTrackerActivity.class);
         startActivity(intent);
