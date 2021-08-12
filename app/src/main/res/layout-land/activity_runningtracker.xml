@@ -9,11 +9,11 @@
 
     <TextView
         android:id="@+id/txtDistance"
-        android:layout_width="110dp"
+        android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_marginTop="8dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="-"
+
         android:textColor="#637daf"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/txtKm4"
@@ -23,42 +23,39 @@
     <TextView
         android:id="@+id/txtKm"
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="Running Time"
         android:textColor="#34517f"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/vLine2"
+        app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="@+id/vLine2"
-        app:layout_constraintTop_toBottomOf="@+id/txtCalories"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/txtCalories" />
 
     <TextView
         android:id="@+id/txtKm5"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="center_horizontal|center_vertical"
-        android:text="Steps Taken"
+        android:text="Steps taken"
         android:textColor="#34517f"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/vLine1"
-        app:layout_constraintHorizontal_bias=".5"
         app:layout_constraintStart_toStartOf="@+id/vLine1"
         app:layout_constraintTop_toBottomOf="@+id/txtDistance" />
 
     <TextView
         android:id="@+id/txtKm4"
-        android:layout_width="110dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="center_horizontal|center_vertical"
-        android:text="Distance\n[km]"
+        android:text="Distance [km]"
         android:textColor="#34517f"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -73,7 +70,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:width="150dp"
         android:text="Start"
         app:cornerRadius="0dp"
@@ -82,7 +79,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editBodyMass"
-        app:layout_constraintVertical_bias="0.596" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/btnStop"
@@ -91,7 +88,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:width="150dp"
         android:text="Stop"
         app:cornerRadius="0dp"
@@ -100,22 +97,19 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/vLine1"
         app:layout_constraintTop_toBottomOf="@+id/editBodyMass"
-        app:layout_constraintVertical_bias="0.596" />
-
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/txtTime"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_marginTop="8dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="-"
         android:textColor="#637daf"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/btnStop"
-        app:layout_constraintEnd_toEndOf="@+id/txtKm"
-        app:layout_constraintHorizontal_bias=".5"
-        app:layout_constraintStart_toStartOf="@+id/txtKm"
+        app:layout_constraintEnd_toStartOf="@+id/vLine2"
+        app:layout_constraintStart_toStartOf="@+id/vLine2"
         app:layout_constraintTop_toBottomOf="@+id/txtKm"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -123,8 +117,6 @@
         android:id="@+id/txtSteps"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="-"
         android:textColor="#637daf"
@@ -140,41 +132,38 @@
         android:id="@+id/textView3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="Body Mass [kg]"
+        android:layout_marginEnd="16dp"
+        android:gravity="right"
+        android:text="WEIGHT"
         android:textColor="#34517f"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintEnd_toStartOf="@+id/vLine1"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editBodyMass"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
         android:ems="10"
         android:hint="Please enter your weight in kg"
+        android:textColor="#637daf"
         android:inputType="textPersonName"
         android:maxLength="22"
-        android:textColor="#637daf"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintBottom_toBottomOf="@+id/textView3"
+        app:layout_constraintEnd_toStartOf="@+id/vLine2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="@+id/textView3" />
 
     <TextView
         android:id="@+id/txtCalories"
-        android:layout_width="110dp"
+        android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="-"
@@ -182,18 +171,18 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/txtCalories2"
-        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintHorizontal_bias=".5"
         app:layout_constraintStart_toStartOf="@+id/txtCalories2"
         app:layout_constraintTop_toBottomOf="@+id/txtCalories2"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/txtCalories2"
-        android:layout_width="110dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="center_horizontal|center_vertical"
-        android:text="Calories\n[kcal]"
+        android:text="Calories [kcal]"
         android:textColor="#34517f"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -203,9 +192,8 @@
 
     <TextView
         android:id="@+id/txtSpeed"
-        android:layout_width="110dp"
+        android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="-"
@@ -219,11 +207,11 @@
 
     <TextView
         android:id="@+id/txtSpeed2"
-        android:layout_width="110dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="center_horizontal|center_vertical"
-        android:text="Speed \n[km/h]"
+        android:text="Speed [km/h]"
         android:textColor="#34517f"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -254,7 +242,6 @@
         android:layout_height="0dp"
         android:backgroundTint="#6b9ede"
         android:text="@string/center_navigation"
-        android:onClick="openToday"
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/vLine2"
@@ -284,7 +271,7 @@
         android:layout_marginBottom="73dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintGuide_percent="0.9"
+        app:layout_constraintGuide_percent="0.85"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -305,29 +292,5 @@
         app:layout_constraintGuide_percent="0.66"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/buttonMap"
-        android:layout_width="235dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="494dp"
-        android:layout_marginBottom="193dp"
-        android:text="RunningRoute"
-        android:onClick="openMap"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/buttonClear"
-        android:layout_width="235dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="556dp"
-        android:layout_marginBottom="115dp"
-        android:text="ButtonClear"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

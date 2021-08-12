@@ -43,4 +43,21 @@ public final class timeCalculator {
             e.printStackTrace();
         }
     }
+
+    public static long countTrainingTimeInSec(String startTime, String stopTime) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.forLanguageTag("pl-PL"));
+        Date d1, d2;
+        try {
+            d1 = format.parse(startTime);
+            d2 = format.parse(stopTime);
+            long diff = Math.abs(d2.getTime() - d1.getTime());
+            long secondsInMilli = 1000;
+            long seconds = diff / secondsInMilli;
+            return seconds;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
 }

@@ -3,15 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/kaili/AndroidStudioProjects/CS5520Project/app/src/main/res/layout-land/activity_main.xml" value="0.536" />
-        <entry key="..\:/Users/kaili/AndroidStudioProjects/CS5520Project/app/src/main/res/layout-land/day_spinner.xml" value="0.5453125" />
-        <entry key="..\:/Users/kaili/AndroidStudioProjects/CS5520Project/app/src/main/res/layout-land/main_cardview.xml" value="0.240625" />
-        <entry key="..\:/Users/kaili/AndroidStudioProjects/CS5520Project/app/src/main/res/layout-land/new_plan.xml" value="0.5453125" />
-        <entry key="..\:/Users/kaili/AndroidStudioProjects/CS5520Project/app/src/main/res/layout/activity_main.xml" value="0.4" />
-        <entry key="..\:/Users/kaili/AndroidStudioProjects/CS5520Project/app/src/main/res/layout/day_spinner.xml" value="0.23020833333333332" />
-        <entry key="..\:/Users/kaili/AndroidStudioProjects/CS5520Project/app/src/main/res/layout/main_cardview.xml" value="0.40677083333333336" />
-        <entry key="..\:/Users/kaili/AndroidStudioProjects/CS5520Project/app/src/main/res/layout/new_plan.xml" value="0.23020833333333332" />
-        <entry key="..\:/Users/kaili/AndroidStudioProjects/CS5520Project/app/src/main/res/layout/workout_spinner.xml" value="0.39692307692307693" />
+        <entry key="..\:/NEU/5520/workout app/CS5520Project/app/src/main/res/layout-land/new_plan.xml" value="0.2921875" />
+        <entry key="..\:/NEU/5520/workout app/CS5520Project/app/src/main/res/layout/day_spinner.xml" value="0.17916666666666667" />
+        <entry key="..\:/NEU/5520/workout app/CS5520Project/app/src/main/res/layout/new_plan.xml" value="0.17916666666666667" />
+        <entry key="..\:/NEU/5520/workout app/CS5520Project/app/src/main/res/layout/workout_discription_popup.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/kaili/AndroidStudioProjects/cs5520projectchou/CS5520Project/app/src/main/res/layout-land/activity_runningtracker.xml" value="0.536" />
+        <entry key="..\:/Users/kaili/AndroidStudioProjects/cs5520projectchou/CS5520Project/app/src/main/res/layout-land/new_plan.xml" value="0.4583333333333333" />
+        <entry key="..\:/Users/kaili/AndroidStudioProjects/cs5520projectchou/CS5520Project/app/src/main/res/layout-land/running_tracker.xml" value="0.4981981981981982" />
+        <entry key="..\:/Users/kaili/AndroidStudioProjects/cs5520projectchou/CS5520Project/app/src/main/res/layout-land/scheduled_plan.xml" value="0.53125" />
+        <entry key="..\:/Users/kaili/AndroidStudioProjects/cs5520projectchou/CS5520Project/app/src/main/res/layout/activity_runningtracker.xml" value="0.536" />
+        <entry key="..\:/Users/kaili/AndroidStudioProjects/cs5520projectchou/CS5520Project/app/src/main/res/layout/new_plan.xml" value="0.40677083333333336" />
+        <entry key="..\:/Users/kaili/AndroidStudioProjects/cs5520projectchou/CS5520Project/app/src/main/res/layout/running_tracker.xml" value="0.28802083333333334" />
+        <entry key="..\:/Users/kaili/AndroidStudioProjects/cs5520projectchou/CS5520Project/app/src/main/res/layout/scheduled_plan.xml" value="0.4" />
+        <entry key="..\:/mobiledev/iFitness/CS5520Project/app/src/main/res/layout/activity_runningtracker.xml" value="0.17916666666666667" />
       </map>
     </option>
   </component>

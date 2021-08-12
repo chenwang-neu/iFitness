@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.current_schedule.ScheduledPlanActivity;
 import com.example.myapplication.model.RunningData;
 import com.example.myapplication.newplan.NewPlanActivity;
 import com.example.myapplication.service.GPSService;
@@ -33,10 +34,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
-public class RunningTrackerActivity extends AppCompatActivity implements SensorEventListener {
+public class RunningTrackerActivity extends AppCompatActivity {
 
     private Button btnStart, btnStop;
-    private TextView count, showDistance, showCalories, showSpeed, showTime;
+    private TextView showPace, showDistance, showCalories, showSpeed, showTime;
     private EditText editBodyMass;
     private BroadcastReceiver broadcastReceiver;
     LocationManager lm;
@@ -44,15 +45,15 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
     DatabaseReference runningRef;
     boolean activityRunning;
     private float initialAmount = 0;
-    private boolean alreadyMeasured = false;
-    private boolean showSteps = false;
+//    private boolean alreadyMeasured = false;
+//    private boolean showSteps = false;
     private double latitude = 0.0;
-    private int stepsMeasured = 0;
+    private double pace = 0;
     private double speedkmH = 0;
     private String startTime, stopTime;
     int maxId = 0;
     double bodyMass;
-    double distance, distanceKm, totalDistanceKm, calories, caloriesTotal;
+    double distance, totalDistance, caloriesTotal;
     int iteration=0;
 
     @Override
@@ -86,20 +87,20 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
 
                     timeCalculator.countAndShowTrainingTime(startTime,stopTime,showTime);
 
-                    distanceKm=(double) intent.getExtras().get("distance")/1000;
-                    totalDistanceKm +=distanceKm;
-                    totalDistanceKm = roundingCalculator.roundingValue(totalDistanceKm,2);
+                    distance=(double) intent.getExtras().get("distance");
+                    totalDistance += distance;
+                    totalDistance = roundingCalculator.roundingValue(totalDistance, 0);
+                    showDistance.setText(String.valueOf(totalDistance));
 
-
-                    calories = bodyMass*distanceKm;
-                    caloriesTotal+= calories;
-                    showDistance.setText(String.valueOf(totalDistanceKm));
-
-                    caloriesTotal = roundingCalculator.roundingValue(calories,2);
+                    caloriesTotal = bodyMass* totalDistance / 1000 * 1.036;
+                    caloriesTotal = roundingCalculator.roundingValue(caloriesTotal,2);
                     showCalories.setText(String.valueOf(caloriesTotal));
+
                     showSpeed.setText(String.valueOf(speedkmH));
 
-                    count.setText(String.valueOf(stepsMeasured));
+                    long timeInSec = timeCalculator.countTrainingTimeInSec(startTime, stopTime);
+                    pace = roundingCalculator.roundingValue(totalDistance / timeInSec, 2);
+                    showPace.setText(String.valueOf(pace));
 
                     runningRef = FirebaseDatabase.getInstance().getReference().child("running");
                     RunningData data = new RunningData();
@@ -107,10 +108,10 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
                     data.setLatitude(latitude);
                     data.setLongitude(longitude);
                     data.setSpeed(speedkmH);
-                    data.setSteps(stepsMeasured);
+                    data.setPace(pace);
                     data.setDate(currentDateAndTime);
-                    data.setBurntCalories(calories);
-                    data.setDistanceKm(distanceKm);
+                    data.setBurntCalories(caloriesTotal);
+                    data.setDistanceKm(totalDistance);
                     data.setBodyMass(bodyMass);
 
                     maxId+=1;
@@ -125,12 +126,12 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
         registerReceiver(broadcastReceiver, new IntentFilter("location_update"));
 
         activityRunning = true;
-        Sensor countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-        if (countSensor != null) {
-            sensorManager.registerListener(this, countSensor, SensorManager.SENSOR_DELAY_UI);
-        } else {
-            Toast.makeText(this, "Count sensor not available!", Toast.LENGTH_LONG).show();
-        }
+//        Sensor countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+//        if (countSensor != null) {
+//            sensorManager.registerListener(this, countSensor, SensorManager.SENSOR_DELAY_UI);
+//        } else {
+//            Toast.makeText(this, "Count sensor not available!", Toast.LENGTH_LONG).show();
+//        }
     }
 
     @Override
@@ -158,7 +159,7 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
         editBodyMass = findViewById(R.id.editBodyMass);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        count = findViewById(R.id.txtSteps);
+        showPace = findViewById(R.id.txtSteps);
         showDistance = findViewById(R.id.txtDistance);
         showCalories = findViewById(R.id.txtCalories);
         showSpeed = findViewById(R.id.txtSpeed);
@@ -179,16 +180,16 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
 
             if (isGPSEnabled) {
 
-                if (bodyMass!=0.0) {
-                    stepsMeasured=0;
+                if (bodyMass!=0.0 && isNumeric(bodyMassString)) {
+                    pace=0;
                     disableTrainingEditField();
                     Intent i = new Intent(getApplicationContext(), GPSService.class);
                     startService(i);
-                    Log.d("test ", "????");
-                    alreadyMeasured = false;
-                    showSteps = true;
+//                    Log.d("test ", "????");
+//                    alreadyMeasured = false;
+//                    showSteps = true;
                 }
-                else Toast.makeText(getApplicationContext(),"Insert your body mass",Toast.LENGTH_SHORT).show();
+                else Toast.makeText(getApplicationContext(),"Insert your correct body mass",Toast.LENGTH_SHORT).show();
 
             } else {
                 final Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -199,7 +200,7 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
             Intent i = new Intent(getApplicationContext(), GPSService.class);
             stopService(i);
             maxId=0;
-            showSteps = false;
+//            showSteps = false;
 
 
             resetVariables();
@@ -209,10 +210,18 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
 
     }
 
+    private static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
+
     private void resetVariables() {
-        distanceKm=0;
-        totalDistanceKm=0;
-        calories =0;
+        distance=0;
+        totalDistance=0;
         caloriesTotal=0;
         speedkmH=0;
         iteration=0;
@@ -248,26 +257,26 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
         }
     }
 
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        if (activityRunning) {
-            if (!alreadyMeasured) {
-                initialAmount = event.values[0];
-                alreadyMeasured = true;
-            }
-            if (showSteps) {
-                stepsMeasured = (int) (event.values[0] - initialAmount);
-            } else stepsMeasured = 0;
-        }
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
+//    @Override
+//    public void onSensorChanged(SensorEvent event) {
+//        if (activityRunning) {
+//            if (!alreadyMeasured) {
+//                initialAmount = event.values[0];
+//                alreadyMeasured = true;
+//            }
+//            if (showSteps) {
+//                stepsMeasured = (int) (event.values[0] - initialAmount);
+//            } else stepsMeasured = 0;
+//        }
+//    }
+//
+//    @Override
+//    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+//
+//    }
     private void showAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(RunningTrackerActivity.this);
-        builder.setMessage("Are you sure you want to exit? Clicking Yes will end current training session.");
+        builder.setMessage("Are you sure you want to exit? Clicking Yes will end current training.");
         builder.setTitle("Warning!");
 
         builder.setCancelable(false);
@@ -275,7 +284,7 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
         builder.setPositiveButton("Yes", (dialog, which) -> {
             Intent i = new Intent(getApplicationContext(), GPSService.class);
             stopService(i);
-            showSteps = false;
+//            showSteps = false;
             activityRunning = false;
             finish();
         });
@@ -291,6 +300,16 @@ public class RunningTrackerActivity extends AppCompatActivity implements SensorE
 
     public void openMap(View view) {
         Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
+    }
+
+    public void openToday(View view) {
+        Intent intent = new Intent(this, ScheduledPlanActivity.class);
+        startActivity(intent);
+    }
+
+    public void openNewPlan(View view) {
+        Intent intent = new Intent(this, NewPlanActivity.class);
         startActivity(intent);
     }
 

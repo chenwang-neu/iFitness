@@ -4,7 +4,7 @@ public class RunningData {
         private double Longitude;
         private double Latitude;
         private double Speed;
-        private int steps;
+        private double pace;
         private String date;
         private double burntCalories;
         private Double distanceKm;
@@ -30,10 +30,10 @@ public class RunningData {
             Speed = speed;
         }
 
-        public int getSteps() { return steps; }
+        public double getPace() { return pace; }
 
-        public void setSteps(int steps) {
-            this.steps = steps;
+        public void setPace(double pace) {
+            this.pace = pace;
         }
 
         public String getDate() { return date; }

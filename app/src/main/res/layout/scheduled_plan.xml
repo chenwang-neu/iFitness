@@ -70,7 +70,7 @@
         android:layout_marginBottom="73dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintGuide_percent="0.2"
+        app:layout_constraintGuide_percent="0.25"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -111,14 +111,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/todayListRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
-        android:background="@color/white"
+        android:background="#f0f0f0"
         app:layout_constrainedHeight="true"
-        app:layout_constraintBottom_toTopOf="@+id/hLine1"
+        app:layout_constraintBottom_toTopOf="@+id/deleteAll"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/hLine3"
@@ -141,28 +140,41 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/hLine3"
+        app:layout_constraintBottom_toTopOf="@+id/displayCalories"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias=".5" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Schedule for"
+        android:textColor="#002952"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/weekdaySpinner"
+        app:layout_constraintEnd_toStartOf="@+id/weekdaySpinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/weekdaySpinner"
+        app:layout_constraintVertical_bias=".5" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:text="Display Schedule for"
+        android:text="Total Calories"
         android:textColor="#002952"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/hLine3"
         app:layout_constraintEnd_toStartOf="@+id/weekdaySpinner"
-        app:layout_constraintHorizontal_bias="0.983"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/weekdaySpinner"
-        app:layout_constraintVertical_bias=".5" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -170,6 +182,32 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="90dp" />
+
+    <TextView
+        android:id="@+id/displayCalories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:freezesText="true"
+        android:text="Default Cal"
+        android:textAlignment="center"
+        android:textColor="#637daf"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/hLine3"
+        app:layout_constraintEnd_toEndOf="@+id/weekdaySpinner"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/weekdaySpinner" />
+
+    <Button
+        android:id="@+id/deleteAll"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="deleteAll"
+        android:text="Delete\n All Tasks"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/hLine1"
+        app:layout_constraintEnd_toStartOf="@+id/vLine2"
+        app:layout_constraintStart_toStartOf="@+id/vLine1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
