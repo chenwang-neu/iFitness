@@ -42,7 +42,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         childReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     double longitude = Double.parseDouble(String.valueOf(ds.child("longitude").getValue()));
                     double latitude = Double.parseDouble(String.valueOf(ds.child("latitude").getValue()));
@@ -50,7 +49,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     testLocation = new LatLng(latitude, longitude);
                     mMap.addMarker(new MarkerOptions().position(testLocation).title(date));
                 }
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(testLocation, 15));
+                if (testLocation != null){
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(testLocation, 15));
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) { }

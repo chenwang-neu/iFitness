@@ -6,9 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -30,13 +27,16 @@ import com.example.myapplication.current_schedule.ScheduledPlanActivity;
 import com.example.myapplication.model.RunningData;
 import com.example.myapplication.newplan.NewPlanActivity;
 import com.example.myapplication.service.GPSService;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class RunningTrackerActivity extends AppCompatActivity {
 
-    private Button btnStart, btnStop;
+    private Button btnStart, btnStop, btnClear;
     private TextView showPace, showDistance, showCalories, showSpeed, showTime;
     private EditText editBodyMass;
     private BroadcastReceiver broadcastReceiver;
@@ -45,8 +45,6 @@ public class RunningTrackerActivity extends AppCompatActivity {
     DatabaseReference runningRef;
     boolean activityRunning;
     private float initialAmount = 0;
-//    private boolean alreadyMeasured = false;
-//    private boolean showSteps = false;
     private double latitude = 0.0;
     private double pace = 0;
     private double speedkmH = 0;
@@ -99,9 +97,14 @@ public class RunningTrackerActivity extends AppCompatActivity {
                     showSpeed.setText(String.valueOf(speedkmH));
 
                     long timeInSec = timeCalculator.countTrainingTimeInSec(startTime, stopTime);
-                    pace = roundingCalculator.roundingValue(totalDistance / timeInSec, 2);
-                    showPace.setText(String.valueOf(pace));
-
+                    pace = roundingCalculator.roundingValue(timeInSec / 60 / totalDistance * 1000, 2);
+                    int paceIntPart = (int)pace;
+                    int paceDecimalPart = (int)(pace - (int)pace) * 100;
+                    if (paceIntPart > 20) {
+                        showPace.setText("0:00");
+                    } else {
+                        showPace.setText(String.format("%02d", paceIntPart) + ":" + String.format("%02d", paceDecimalPart));
+                    }
                     runningRef = FirebaseDatabase.getInstance().getReference().child("running");
                     RunningData data = new RunningData();
 
@@ -115,23 +118,14 @@ public class RunningTrackerActivity extends AppCompatActivity {
                     data.setBodyMass(bodyMass);
 
                     maxId+=1;
-                    if (maxId % 10 == 0) runningRef.child(String.valueOf(maxId)).setValue(data);
+                    if (maxId % 30 == 0) runningRef.child(String.valueOf(maxId)).setValue(data);
                 }
-
-
-
 
             };
         }
         registerReceiver(broadcastReceiver, new IntentFilter("location_update"));
 
         activityRunning = true;
-//        Sensor countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-//        if (countSensor != null) {
-//            sensorManager.registerListener(this, countSensor, SensorManager.SENSOR_DELAY_UI);
-//        } else {
-//            Toast.makeText(this, "Count sensor not available!", Toast.LENGTH_LONG).show();
-//        }
     }
 
     @Override
@@ -155,6 +149,7 @@ public class RunningTrackerActivity extends AppCompatActivity {
 
         btnStart = findViewById(R.id.btnStart);
         btnStop = findViewById(R.id.btnStop);
+        btnClear = findViewById(R.id.btnClear);
 
         editBodyMass = findViewById(R.id.editBodyMass);
 
@@ -171,26 +166,37 @@ public class RunningTrackerActivity extends AppCompatActivity {
 
     private void enable_buttons() {
         btnStart.setOnClickListener(v -> {
+            runningRef = FirebaseDatabase.getInstance().getReference().child("running");
+            runningRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    long numOfRecord = dataSnapshot.getChildrenCount();
+                    Log.d("number", String.valueOf(numOfRecord));
+                    maxId = (int)numOfRecord * 30;
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) { }
+            });
+
             lm = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
             boolean isGPSEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
             String bodyMassString = editBodyMass.getText().toString().trim();
-            if(bodyMassString.matches("")) bodyMass=0.0;
-            else bodyMass = Double.parseDouble(bodyMassString);
-
+            if(bodyMassString.matches("")) {
+                bodyMass=0.0;
+                Toast.makeText(getApplicationContext(),"Please insert your body mass",Toast.LENGTH_SHORT).show();
+            } else if (!isNumeric(bodyMassString)) {
+                Toast.makeText(getApplicationContext(),"Body mass can only be integer.",Toast.LENGTH_SHORT).show();
+            } else {
+                bodyMass = Double.parseDouble(bodyMassString);
+            }
             if (isGPSEnabled) {
-
                 if (bodyMass!=0.0 && isNumeric(bodyMassString)) {
                     pace=0;
                     disableTrainingEditField();
                     Intent i = new Intent(getApplicationContext(), GPSService.class);
                     startService(i);
-//                    Log.d("test ", "????");
-//                    alreadyMeasured = false;
-//                    showSteps = true;
                 }
-                else Toast.makeText(getApplicationContext(),"Insert your correct body mass",Toast.LENGTH_SHORT).show();
-
             } else {
                 final Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 startActivity(intent);
@@ -200,14 +206,14 @@ public class RunningTrackerActivity extends AppCompatActivity {
             Intent i = new Intent(getApplicationContext(), GPSService.class);
             stopService(i);
             maxId=0;
-//            showSteps = false;
-
-
             resetVariables();
 
             enableTrainingEditField();
         });
-
+        btnClear.setOnClickListener(v -> {
+            runningRef = FirebaseDatabase.getInstance().getReference().child("running");
+            runningRef.removeValue();
+        });
     }
 
     private static boolean isNumeric(String str) {
@@ -257,23 +263,6 @@ public class RunningTrackerActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    public void onSensorChanged(SensorEvent event) {
-//        if (activityRunning) {
-//            if (!alreadyMeasured) {
-//                initialAmount = event.values[0];
-//                alreadyMeasured = true;
-//            }
-//            if (showSteps) {
-//                stepsMeasured = (int) (event.values[0] - initialAmount);
-//            } else stepsMeasured = 0;
-//        }
-//    }
-//
-//    @Override
-//    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-//
-//    }
     private void showAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(RunningTrackerActivity.this);
         builder.setMessage("Are you sure you want to exit? Clicking Yes will end current training.");
@@ -284,7 +273,6 @@ public class RunningTrackerActivity extends AppCompatActivity {
         builder.setPositiveButton("Yes", (dialog, which) -> {
             Intent i = new Intent(getApplicationContext(), GPSService.class);
             stopService(i);
-//            showSteps = false;
             activityRunning = false;
             finish();
         });
