@@ -90,18 +90,20 @@ public class RunningTrackerActivity extends AppCompatActivity {
                     totalDistance = roundingCalculator.roundingValue(totalDistance, 0);
                     showDistance.setText(String.valueOf(totalDistance));
 
-                    caloriesTotal = bodyMass* totalDistance / 1000 * 1.036;
+                    caloriesTotal = bodyMass* totalDistance / 1000.00 * 1.036;
                     caloriesTotal = roundingCalculator.roundingValue(caloriesTotal,2);
                     showCalories.setText(String.valueOf(caloriesTotal));
 
                     showSpeed.setText(String.valueOf(speedkmH));
 
                     long timeInSec = timeCalculator.countTrainingTimeInSec(startTime, stopTime);
-                    pace = roundingCalculator.roundingValue(timeInSec / 60 / totalDistance * 1000, 2);
+                    //Log.d("Sec", String.valueOf(timeInSec));
+                    pace = roundingCalculator.roundingValue((timeInSec / 60.00) / (totalDistance / 1000.00), 2);
+                    //Log.d("Pace", String.valueOf((timeInSec / 60.00)));
                     int paceIntPart = (int)pace;
-                    int paceDecimalPart = (int)(pace - (int)pace) * 100;
+                    int paceDecimalPart = (int)((pace - (int)pace) * 100);
                     if (paceIntPart > 20) {
-                        showPace.setText("0:00");
+                        showPace.setText("00:00");
                     } else {
                         showPace.setText(String.format("%02d", paceIntPart) + ":" + String.format("%02d", paceDecimalPart));
                     }
@@ -171,7 +173,7 @@ public class RunningTrackerActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     long numOfRecord = dataSnapshot.getChildrenCount();
-                    Log.d("number", String.valueOf(numOfRecord));
+                    //Log.d("number", String.valueOf(numOfRecord));
                     maxId = (int)numOfRecord * 30;
                 }
                 @Override
