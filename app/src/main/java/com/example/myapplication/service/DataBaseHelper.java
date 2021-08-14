@@ -166,17 +166,4 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
 
-//    public int getCalendarsRows() {
-//        SQLiteDatabase db  = this.getWritableDatabase();
-//
-//        int count = 0;
-//        String query = "select count(*) from " + CALENDAR_TABLE;
-//        Cursor cursor = db.rawQuery(query, null);
-//        while (cursor.moveToFirst()) {
-//            count = cursor.getCount();
-//        }
-//        return count;
-//    }
-
-
 }

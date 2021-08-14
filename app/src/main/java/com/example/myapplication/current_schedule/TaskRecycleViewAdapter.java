@@ -41,13 +41,6 @@ public class TaskRecycleViewAdapter extends RecyclerView.Adapter<TaskRecycleView
 
     @Override
     public void onBindViewHolder(TaskRecycleViewHolder holder, int position) {
-//        if (!mCursor.moveToPosition(position)) {
-//            return;
-//        }
-
-//        int id = mCursor.getInt(mCursor.getColumnIndex("cid"));
-//        holder.itemView.setTag(id);
-
         WorkoutItem currentItem = todayTaskList.get(position);
         holder.todayTask.setText(currentItem.getWorkoutName());
         holder.todayTaskCheckbox.setChecked(currentItem.getStatus());
@@ -56,21 +49,8 @@ public class TaskRecycleViewAdapter extends RecyclerView.Adapter<TaskRecycleView
 
     @Override
     public int getItemCount() {
-//        return mCursor.getCount();
         return todayTaskList.size();
     }
-
-//    public void swapCursor(Cursor newCursor) {
-//        if (mCursor != null) {
-//            mCursor.close();
-//        }
-//
-//        mCursor = newCursor;
-//
-//        if (newCursor != null) {
-//            nofityData
-//        }
-//    }
 
 
 }

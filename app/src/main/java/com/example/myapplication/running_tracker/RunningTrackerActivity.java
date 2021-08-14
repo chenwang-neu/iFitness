@@ -97,9 +97,7 @@ public class RunningTrackerActivity extends AppCompatActivity {
                     showSpeed.setText(String.valueOf(speedkmH));
 
                     long timeInSec = timeCalculator.countTrainingTimeInSec(startTime, stopTime);
-                    //Log.d("Sec", String.valueOf(timeInSec));
                     pace = roundingCalculator.roundingValue((timeInSec / 60.00) / (totalDistance / 1000.00), 2);
-                    //Log.d("Pace", String.valueOf((timeInSec / 60.00)));
                     int paceIntPart = (int)pace;
                     int paceDecimalPart = (int)((pace - (int)pace) * 100);
                     if (paceIntPart > 20) {
@@ -120,7 +118,7 @@ public class RunningTrackerActivity extends AppCompatActivity {
                     data.setBodyMass(bodyMass);
 
                     maxId+=1;
-                    if (maxId % 30 == 0) runningRef.child(String.valueOf(maxId)).setValue(data);
+                    if (maxId == 1 || maxId % 30 == 0) runningRef.child(String.valueOf(maxId)).setValue(data);
                 }
 
             };

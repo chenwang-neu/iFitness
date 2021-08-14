@@ -1,11 +1,8 @@
 package com.example.myapplication.model;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Calendar {
     private int cid;
-    // monday -- sunday
     private String cname;
     private String ename;
 

@@ -171,12 +171,11 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
     }
 
 
-    // handles screen rotation
+
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         Log.d("kk out",pendingCategoryList.toString());
         Log.d("kk out",pendingIndexList.toString());
-//        Log.d("kk out", dayList.toString());
 
         // Handle days
         int pendingDaySize = pendingDaysList == null? 0: pendingDaysList.size();
@@ -255,7 +254,6 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
                     exerciseList.add(savedInstanceState.getString(PENDING_EXERCISTLIST + i));
                 }
             }
-            Log.d("kk restore", exerciseList.toString());
         }
 
     }
@@ -471,7 +469,6 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
 
         }
         //test calendar database
-        Log.d("The calendar database!!!!!!!!!!!!", dataBaseHelper.getAllCalendar().toString());
 
         //2. clear frontend
 
