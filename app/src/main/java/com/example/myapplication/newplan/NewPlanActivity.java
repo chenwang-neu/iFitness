@@ -174,9 +174,6 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        Log.d("kk out",pendingCategoryList.toString());
-        Log.d("kk out",pendingIndexList.toString());
-
         // Handle days
         int pendingDaySize = pendingDaysList == null? 0: pendingDaysList.size();
         outState.putInt(PENDING_DAYS_SIZE, pendingDaySize);
@@ -201,8 +198,6 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
         super.onSaveInstanceState(outState);
 
 //         Handel exerciseList and dayList for db
-        Log.d("kk get", dayList.toString());
-        Log.d("kk get", exerciseList.toString());
         int dayListSize = dayList == null? 0: dayList.size();
         outState.putInt(PENDING_DAYLIST_SIZE, dayListSize);
         if (dayListSize != 0) {
@@ -452,7 +447,6 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
 
         if (dayList.size() == 0 || exerciseList.size() == 0) {
             Toast.makeText(NewPlanActivity.this, "You have not select day or exercise yet. Please select first", Toast.LENGTH_SHORT).show();
-            Log.d("can not be 0", "You have not select day or exercise yet. Please select first");
             return;
         }
         DataBaseHelper dataBaseHelper = new DataBaseHelper(NewPlanActivity.this);
@@ -463,8 +457,6 @@ public class NewPlanActivity extends AppCompatActivity implements AdapterView.On
                 //2. add calendar to calendar database
 
                 dataBaseHelper.addOneCalendar(calendar);
-                Log.d("kk confirm", day);
-                Log.d("kk confirm", exer);
             }
 
         }

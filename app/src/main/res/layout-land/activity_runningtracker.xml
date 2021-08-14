@@ -24,7 +24,7 @@
         android:id="@+id/txtKm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="Running Time"
         android:textColor="#34517f"
@@ -37,9 +37,9 @@
 
     <TextView
         android:id="@+id/txtKm5"
-        android:layout_width="110dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="Pace [mins/km]"
         android:textColor="#34517f"
@@ -53,7 +53,7 @@
         android:id="@+id/txtKm4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="Distance [km]"
         android:textColor="#34517f"
@@ -66,38 +66,33 @@
     <Button
         android:id="@+id/btnStart"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
         android:layout_marginBottom="8dp"
         android:width="150dp"
         android:text="Start"
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toTopOf="@+id/runningTrackerBtn"
-        app:layout_constraintEnd_toStartOf="@+id/vLine2"
-        app:layout_constraintHorizontal_bias="0.488"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editBodyMass"
-        app:layout_constraintVertical_bias="0.622" />
+        app:layout_constraintEnd_toStartOf="@+id/vLine1"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="@+id/vLine1"
+        app:layout_constraintTop_toBottomOf="@+id/txtSteps"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnStop"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="8dp"
         android:width="150dp"
         android:text="Stop"
         app:cornerRadius="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/newPlanBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.475"
-        app:layout_constraintStart_toStartOf="@+id/vLine1"
-        app:layout_constraintTop_toBottomOf="@+id/editBodyMass"
-        app:layout_constraintVertical_bias="0.622" />
+        app:layout_constraintBottom_toBottomOf="@+id/btnStart"
+        app:layout_constraintEnd_toStartOf="@+id/vLine2"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="@+id/vLine2"
+        app:layout_constraintTop_toTopOf="@+id/btnStart"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/txtTime"
@@ -121,12 +116,10 @@
         android:text="-"
         android:textColor="#637daf"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnStart"
         app:layout_constraintEnd_toEndOf="@+id/txtKm5"
         app:layout_constraintHorizontal_bias=".5"
         app:layout_constraintStart_toStartOf="@+id/txtKm5"
-        app:layout_constraintTop_toBottomOf="@+id/txtKm5"
-        app:layout_constraintVertical_bias="0" />
+        app:layout_constraintTop_toBottomOf="@+id/txtKm5" />
 
     <TextView
         android:id="@+id/textView3"
@@ -134,7 +127,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:gravity="right"
-        android:text="Body Mass [kg]"
+        android:text="Weight [kg]"
         android:textColor="#34517f"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -181,7 +174,7 @@
         android:id="@+id/txtCalories2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="Calories [kcal]"
         android:textColor="#34517f"
@@ -210,7 +203,7 @@
         android:id="@+id/txtSpeed2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="Speed [km/h]"
         android:textColor="#34517f"
@@ -242,6 +235,7 @@
         android:layout_height="0dp"
         android:backgroundTint="#6b9ede"
         android:text="@string/center_navigation"
+        android:onClick="openToday"
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/vLine2"
@@ -294,32 +288,29 @@
 
     <Button
         android:id="@+id/buttonMap"
-        android:layout_width="205dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="118dp"
-        android:layout_marginTop="272dp"
-        android:layout_marginEnd="408dp"
-        android:layout_marginBottom="85dp"
-        android:text="Running Route"
+        android:layout_width="180dp"
+        android:layout_height="40dp"
         android:onClick="openMap"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Running Route"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/hLine1"
+        app:layout_constraintEnd_toStartOf="@+id/vLine1"
+        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintStart_toStartOf="@+id/vLine1"
+        app:layout_constraintTop_toBottomOf="@+id/btnStart" />
 
     <Button
         android:id="@+id/btnClear"
-        android:layout_width="205dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="389dp"
-        android:layout_marginTop="272dp"
-        android:layout_marginEnd="137dp"
-        android:layout_marginBottom="85dp"
+        android:layout_width="180dp"
+        android:layout_height="40dp"
         android:text="Clear Record"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/hLine1"
+        app:layout_constraintEnd_toStartOf="@+id/vLine2"
+        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintStart_toStartOf="@+id/vLine2"
+        app:layout_constraintTop_toBottomOf="@+id/btnStop"
+        app:layout_constraintVertical_bias=".5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

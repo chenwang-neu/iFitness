@@ -65,24 +65,6 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scheduled_plan);
         init();
-
-//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-//
-//            @Override
-//            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-//                return false;
-//            }
-//
-//            @Override
-//            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-//                Toast.makeText(ScheduledPlanActivity.this, "Delete an item", Toast.LENGTH_SHORT).show();
-//                int position = viewHolder.getLayoutPosition();
-//                todayTaskList.remove(position);
-//                mAdapter.notifyItemRemoved(position);
-//                // remove data from database
-//            }
-//        });
-//        itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     private void init() {
@@ -136,9 +118,7 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         List<String> selectedExerciseList = new ArrayList<>();
         List<Calendar> selectedDayExerciseList = new ArrayList<>();
-//        DayItem selectedDay = (DayItem) parent.getItemAtPosition(position);
         selectedDay = (DayItem) parent.getItemAtPosition(position);
-        // get calendar list for selectedDay:
         DataBaseHelper dataBaseHelper = new DataBaseHelper(ScheduledPlanActivity.this);
         selectedDayExerciseList = dataBaseHelper.getCalendarByDay(selectedDay.getWeekday());
 
@@ -147,9 +127,6 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
                 selectedExerciseList.add(s.getEname());
             }
         }
-
-        // exercises for the day are in selectedExercisesList, then find them from firebase and
-        // show them in the frontpage
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("exercises");
         reference.addValueEventListener(new ValueEventListener() {
 
@@ -256,6 +233,4 @@ public class ScheduledPlanActivity extends AppCompatActivity implements AdapterV
         Intent intent = new Intent(this, NewPlanActivity.class);
         startActivity(intent);
     }
-
-
 }
