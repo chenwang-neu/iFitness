@@ -178,7 +178,7 @@
         android:id="@+id/displayCalories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
+        android:text="0 Cal."
         android:textColor="#637daf"
         android:textSize="18sp"
         android:textStyle="bold"

@@ -188,7 +188,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:freezesText="true"
-        android:text="Default Cal"
+        android:text="0 Cal."
         android:textAlignment="center"
         android:textColor="#637daf"
         android:textSize="20sp"
